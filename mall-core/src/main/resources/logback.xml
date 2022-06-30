@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan="true" 当发生变化 自动重载文件-->
+<!--scanPeriod="1000" 自动重载文件时间间隔-->
+<!--debug="true" 打印出logback内部日志信息-->
+<configuration debug="false">
+    <!-- 配置日志名称 -->
+    <property name="app.name" value="order-service"/>
+
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="log.path" value="./logs/"/>
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 过滤掉指定级别的日志 -->
+        <!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+        <!--    <level>ERROR</level>-->
+        <!--</filter>-->
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度,%msg：日志消息，%n是换行符-->
+            <pattern>
+                ${app.name} %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} --- %msg%n
+            </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/${app.name}.log</file>
+        <!-- 日志保存设置为.zip会自动进行压缩 -->
+        <!--<file>${log.path}/${app.name}.zip</file>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件的名称 -->
+            <fileNamePattern>${log.path}/${app.name}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--日志文件保留天数-->
+            <maxHistory>7</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--日志文件最大的大小-->
+                <maxFileSize>1MB</maxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符
+            %logger{36}表示logger是class的全名，36表示限制最长字符-->
+            <pattern>%date %level [%thread] %logger{36} [%file:%line] %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 配置根loger， 只有一个level属性 -->
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+    <!-- 配置loger，name：指定一个包或类，level：日志级别，additivity：是否向上级传递打印信息（默认true）
+    additivity如果不修改为false的话，日志信息可能会出现打印两次 -->
+    <logger name="com.mall" level="debug" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </logger>
+
+</configuration>
