@@ -1,12 +1,11 @@
 <template>
     <div>
-        <el-button type="primary" @click="drawer = true">Primary</el-button>
+        <el-button type="primary" @click="addClick">Primary</el-button>
     </div>
     <div>
         <el-drawer v-model="drawer"
                    direction="rtl"
                    size="35%"
-                   :before-close="handleClose"
         >
             <template #title>
                 <h4>商品品类添加</h4>
@@ -74,21 +73,31 @@ const categoryData = [
         label: "Level one 1",
     },
 ];
+
+onMounted(() => {
+
+})
+
+const addClick = () => {
+    http
+        .get("/api/category/pid/0")
+        .then((res: any) => {
+            for (let resKey in res) {
+                categoryData.push({value: res[resKey].id, label: res[resKey].name})
+            }
+            console.log(categoryData);
+        })
+        .catch((err: any) => {
+            ElMessage.error("数据初始化失败")
+        });
+    drawer.value = true
+}
+
 const drawer = ref(false)
 
 function cancelClick() {
     drawer.value = false
     reset()
-}
-
-const handleClose = () => {
-    ElMessageBox.confirm('Are you sure you want to close this?')
-        .then(() => {
-            cancelClick()
-        })
-        .catch(() => {
-            // catch error
-        })
 }
 
 const onchange = (file: any, fileList: any) => {
@@ -104,8 +113,8 @@ const confirmClick = () => {
         .post("/api/category/add", {
             name: form.name,
             img: form.img,
-            seq: form.priority,
-            parentId: form.pid
+            priority: form.priority,
+            pid: form.pid,
         })
         .then((res: any) => {
             ElMessage.success("添加成功")

@@ -11,7 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * 商品类别表(TbCategory)实体类
@@ -60,7 +60,7 @@ public class Category implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column("update_time")
-    private LocalDate updateTime;
+    private LocalDateTime updateTime;
 
 }
 

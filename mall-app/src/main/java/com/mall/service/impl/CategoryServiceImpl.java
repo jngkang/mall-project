@@ -1,5 +1,6 @@
 package com.mall.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.mall.mapper.CategoryMapper;
 import com.mall.model.Category;
 import com.mall.model.query.CategoryQuery;
@@ -7,6 +8,7 @@ import com.mall.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -26,6 +28,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Integer insert(Category category) {
+        if (ObjectUtil.isEmpty(category.getStatus())) {
+            category.setStatus(1);
+        }
+        category.setUpdateTime(LocalDateTime.now());
         return categoryMapper.insert(category);
     }
 

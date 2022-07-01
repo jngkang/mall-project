@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * 商品类别表(TbCategory)实体类
@@ -57,7 +57,7 @@ public class CategoryQuery extends AbstractQuery {
      * 更新时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDate updateTime;
+    private LocalDateTime updateTime;
 
 }
 
