@@ -23,7 +23,7 @@
             </el-table-column>
             <el-table-column prop="statusX" label="状态" sortable align="center" width="80"></el-table-column>
             <el-table-column prop="updateBy" label="最后一次更新者" sortable align="center"></el-table-column>
-            <el-table-column prop="updateTime" label="最后一次更新时间" sortable align="center"></el-table-column>
+            <el-table-column prop="updateTime" label="最后一次更新时间" sortable align="center" :formatter="dateFormatter"></el-table-column>
         </el-table>
     </div>
     <div>
@@ -85,6 +85,7 @@ import http from "@/http/index";
 import type {UploadInstance} from "element-plus";
 import {useRoute, useRouter} from "vue-router";
 import {ElMessage} from "element-plus/es";
+import dayjs from 'dayjs'
 
 const uploadRef = ref<UploadInstance>();
 const route = useRoute();
@@ -101,6 +102,10 @@ const categoryData = ref([
 ]);
 
 const tableData = ref([])
+
+const dateFormatter = (row: any) => {
+    return dayjs(row.updateTime).format('YYYY-MM-DD HH:mm:ss');
+}
 
 onMounted(() => {
     http
