@@ -7,8 +7,8 @@ import com.mall.utils.EmailUtil;
 import com.mall.mapper.UserMapper;
 import com.mall.model.User;
 import com.mall.model.query.UserQuery;
-import com.mall.model.vo.UserLoginVO;
-import com.mall.model.vo.UserRegisterVO;
+import com.mall.model.dto.UserLoginDTO;
+import com.mall.model.dto.UserRegisterDTO;
 import com.mall.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -43,13 +43,13 @@ public class UserServiceImpl implements UserService {
     private String tokenKey;
 
     @Override
-    public String login(UserLoginVO userLoginVO) throws Exception {
+    public String login(UserLoginDTO userLoginDTO) throws Exception {
         // 根据前端传回的数据中的id进行查询数据
-        List<UserLoginVO> queryRes = userMapper.select(UserQuery.builder().username(userLoginVO.getUsername()).password(userLoginVO.getPassword()).build());
-        UserLoginVO res = queryRes.get(0);
+        List<UserLoginDTO> queryRes = userMapper.select(UserQuery.builder().username(userLoginDTO.getUsername()).password(userLoginDTO.getPassword()).build());
+        UserLoginDTO res = queryRes.get(0);
         // TODO 此处从数据库中获取盐值，再使用MD5加密后再进行比较
-        if (!(userLoginVO.getUsername().equals(res.getUsername())
-                && userLoginVO.getPassword().equals(res.getPassword()))) {
+        if (!(userLoginDTO.getUsername().equals(res.getUsername())
+                && userLoginDTO.getPassword().equals(res.getPassword()))) {
             throw new Exception("用户不存在");
         }
         //生成token
@@ -70,21 +70,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String register(UserRegisterVO userRegisterVO) throws Exception {
-        String emailCaptcha = stringRedisTemplate.opsForValue().get("captcha#" + userRegisterVO.getEmail());
+    public String register(UserRegisterDTO userRegisterDTO) throws Exception {
+        String emailCaptcha = stringRedisTemplate.opsForValue().get("captcha#" + userRegisterDTO.getEmail());
         if (StrUtil.isBlank(emailCaptcha)) {
             throw new Exception("验证码输入有误！");
         }
-        if (!emailCaptcha.equals(userRegisterVO.getEmailCaptcha())) {
+        if (!emailCaptcha.equals(userRegisterDTO.getEmailCaptcha())) {
             throw new Exception("验证码输入有误！");
         }
-        if (!userRegisterVO.getPassword().equals(userRegisterVO.getPassword2())) {
+        if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getPassword2())) {
             throw new Exception("确认密码有误！");
         }
         User user = User.builder()
-                .username(userRegisterVO.getUsername())
-                .email(userRegisterVO.getEmail())
-                .password(userRegisterVO.getPassword())
+                .username(userRegisterDTO.getUsername())
+                .email(userRegisterDTO.getEmail())
+                .password(userRegisterDTO.getPassword())
                 .build();
         // TODO 此处使用MD5进行加密，并保存盐值
         Integer res = userMapper.insert(user);
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception("该邮箱不合法，请更换邮箱！");
         }
         // 检测邮箱是否已经被注册
-        List<UserLoginVO> list = userMapper.select(UserQuery.builder().email(email).build());
+        List<UserLoginDTO> list = userMapper.select(UserQuery.builder().email(email).build());
         if (list.size() > 0) {
             throw new Exception("该邮箱已经被绑定，请更换邮箱！");
         }

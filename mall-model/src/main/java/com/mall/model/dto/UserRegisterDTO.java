@@ -1,4 +1,4 @@
-package com.mall.model.vo;
+package com.mall.model.dto;
 
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
@@ -24,7 +24,7 @@ import java.io.Serializable;
 @Builder
 @ToString
 @Table(value = "tb_user")
-public class UserRegisterVO implements Serializable {
+public class UserRegisterDTO implements Serializable {
     /**
      * 编号
      */

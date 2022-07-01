@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -50,6 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
         String img = StrUtil.format(Const.IMG_SERVICE + imgName);
         category.setImg(img);
         category.setUpdateBy(CurrentThreadLocal.get().getUsername());
+        category.setUpdateTime(LocalDateTime.now());
         return categoryMapper.insert(category);
     }
 

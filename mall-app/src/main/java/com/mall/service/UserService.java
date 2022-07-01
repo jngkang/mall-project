@@ -1,7 +1,7 @@
 package com.mall.service;
 
-import com.mall.model.vo.UserLoginVO;
-import com.mall.model.vo.UserRegisterVO;
+import com.mall.model.dto.UserLoginDTO;
+import com.mall.model.dto.UserRegisterDTO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,18 +14,18 @@ public interface UserService {
     /**
      * 用户登录
      *
-     * @param userLoginVO 前端传回的用户名和密码
+     * @param userLoginDTO 前端传回的用户名和密码
      * @return java.lang.String
      */
-    public String login(UserLoginVO userLoginVO) throws Exception;
+    public String login(UserLoginDTO userLoginDTO) throws Exception;
 
     /**
      * 用户注册
      *
-     * @param userRegisterVO 从前端传回的用户注册所填写的信息
+     * @param userRegisterDTO 从前端传回的用户注册所填写的信息
      * @return java.lang.String
      */
-    public String register(UserRegisterVO userRegisterVO) throws Exception;
+    public String register(UserRegisterDTO userRegisterDTO) throws Exception;
 
     /**
      * 获取注册验证码

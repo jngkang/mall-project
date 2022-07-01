@@ -3,7 +3,7 @@ package com.mall.mapper;
 import com.mall.annotation.PageX;
 import com.mall.model.User;
 import com.mall.model.query.UserQuery;
-import com.mall.model.vo.UserLoginVO;
+import com.mall.model.dto.UserLoginDTO;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -26,7 +26,7 @@ public interface UserMapper {
      */
     @PageX
     @SelectProvider(type = SqlGen.class, method = SqlGen.SELECT)
-    public List<UserLoginVO> select(UserQuery userQuery);
+    public List<UserLoginDTO> select(UserQuery userQuery);
 
     @InsertProvider(type = SqlGen.class, method = SqlGen.INSERT)
     public Integer insert(User user);

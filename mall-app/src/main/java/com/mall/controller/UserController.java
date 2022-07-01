@@ -1,8 +1,8 @@
 package com.mall.controller;
 
 import com.mall.annotation.NoAuthorization;
-import com.mall.model.vo.UserLoginVO;
-import com.mall.model.vo.UserRegisterVO;
+import com.mall.model.dto.UserLoginDTO;
+import com.mall.model.dto.UserRegisterDTO;
 import com.mall.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,14 +25,14 @@ public class UserController {
 
     @NoAuthorization
     @PostMapping("login")
-    public String login(@RequestBody UserLoginVO userLoginVO) throws Exception {
-        return userService.login(userLoginVO);
+    public String login(@RequestBody UserLoginDTO userLoginDTO) throws Exception {
+        return userService.login(userLoginDTO);
     }
 
     @NoAuthorization
     @PostMapping("/register")
-    public String register(@RequestBody UserRegisterVO userRegisterVO) throws Exception {
-        return userService.register(userRegisterVO);
+    public String register(@RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
+        return userService.register(userRegisterDTO);
     }
 
     @NoAuthorization

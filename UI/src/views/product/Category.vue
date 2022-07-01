@@ -1,6 +1,30 @@
 <template>
     <div>
-        <el-button type="primary" @click="addClick">Primary</el-button>
+        <el-button type="primary" @click="addClick">添加</el-button>
+        <el-table
+                :data="tableData"
+                style="width: 100%; margin-bottom: 20px; margin-top: 20px;"
+                stripe="true"
+                row-key="id"
+                border
+        >
+            <el-table-column prop="id" label="#ID" sortable align="center" width="80"></el-table-column>
+            <el-table-column prop="name" label="品类名称" sortable align="center"></el-table-column>
+            <el-table-column label="图片" align="center" width="120">
+                <template #default="scope">
+                    <el-image
+                            style="width: 80px; height: 80px"
+                            :src="scope.row.img"
+                            :preview-src-list="[scope.row.img]"
+                            fit="cover"
+                            preview-teleported="true"
+                    ></el-image>
+                </template>
+            </el-table-column>
+            <el-table-column prop="statusX" label="状态" sortable align="center" width="80"></el-table-column>
+            <el-table-column prop="updateBy" label="最后一次更新者" sortable align="center"></el-table-column>
+            <el-table-column prop="updateTime" label="最后一次更新时间" sortable align="center"></el-table-column>
+        </el-table>
     </div>
     <div>
         <el-drawer v-model="drawer"
@@ -31,7 +55,12 @@
                             </el-upload>
                         </el-form-item>
                         <el-form-item label="所属父类">
-                            <el-tree-select v-model="form.pid" :data="categoryData" style="width: 100%;"></el-tree-select>
+                            <el-tree-select
+                                    v-model="form.pid"
+                                    :data="categoryData"
+                                    style="width: 100%;"
+                                    check-strictly=true
+                            ></el-tree-select>
                         </el-form-item>
                         <el-form-item label="优先级">
                             <el-input v-model="form.priority"></el-input>
@@ -71,20 +100,28 @@ const categoryData = ref([
     {value: "0", label: "根节点"},
 ]);
 
-onMounted(() => {
+const tableData = ref([])
 
+onMounted(() => {
+    http
+        .post("/api/category/page", {})
+        .then((res: any) => {
+            console.log(res);
+            tableData.value = res
+        })
+        .catch((err: any) => {
+            ElMessage.error("数据初始化失败")
+        });
 })
 
 const addClick = () => {
+    categoryData.value = [{value: "0", label: "根节点"}]
     http
         .post("/api/category/page", {
-            pid: 0,
+            deep: 2,
         })
         .then((res: any) => {
-            for (let resKey in res) {
-                console.log(res[resKey]);
-                categoryData.value.push({value: res[resKey].id, label: res[resKey].name})
-            }
+            categoryData.value = categoryData.value.concat(res)
         })
         .catch((err: any) => {
             ElMessage.error("数据初始化失败")
