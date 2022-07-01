@@ -1,8 +1,5 @@
-package com.mall.model;
+package com.mall.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mall.annotation.Column;
-import com.mall.annotation.Ignore;
 import com.mall.annotation.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * 商品类别表(TbCategory)实体类
@@ -27,12 +23,8 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 @Table(value = "tb_category")
-public class Category implements Serializable {
+public class CategoryDTO implements Serializable {
 
-    /**
-     * 类别编号
-     */
-    private Long id;
     /**
      * 类别名称
      */
@@ -41,6 +33,7 @@ public class Category implements Serializable {
      * 商品图片
      */
     private String img;
+    private String imgName;
     /**
      * 显示优化级
      */
@@ -53,16 +46,5 @@ public class Category implements Serializable {
      * 状态：1上架，2下架
      */
     private Integer status;
-    /**
-     * 更新人
-     */
-    @Column("update_by")
-    private String updateBy;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column("update_time")
-    @Ignore
-    private LocalDateTime updateTime;
-
 }
 

@@ -65,14 +65,11 @@ const form = reactive({
     priority: 0,
     img: "",
     pid: "0",
+    imgName: "",
 });
-const categoryData = [
+const categoryData = ref([
     {value: "0", label: "根节点"},
-    {
-        value: "1",
-        label: "Level one 1",
-    },
-];
+]);
 
 onMounted(() => {
 
@@ -80,12 +77,14 @@ onMounted(() => {
 
 const addClick = () => {
     http
-        .get("/api/category/pid/0")
+        .post("/api/category/page", {
+            pid: 0,
+        })
         .then((res: any) => {
             for (let resKey in res) {
-                categoryData.push({value: res[resKey].id, label: res[resKey].name})
+                console.log(res[resKey]);
+                categoryData.value.push({value: res[resKey].id, label: res[resKey].name})
             }
-            console.log(categoryData);
         })
         .catch((err: any) => {
             ElMessage.error("数据初始化失败")
@@ -105,6 +104,7 @@ const onchange = (file: any, fileList: any) => {
     reader.readAsDataURL(file.raw);
     reader.onload = () => {
         form.img = reader.result;
+        form.imgName = file.raw.name;
     };
 };
 
@@ -115,6 +115,7 @@ const confirmClick = () => {
             img: form.img,
             priority: form.priority,
             pid: form.pid,
+            imgName: form.imgName,
         })
         .then((res: any) => {
             ElMessage.success("添加成功")

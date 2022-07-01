@@ -1,9 +1,11 @@
 package com.mall.service;
 
 import com.mall.model.Category;
+import com.mall.model.dto.CategoryDTO;
 import com.mall.model.query.CategoryQuery;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ public interface CategoryService {
 
     public List<Category> select(CategoryQuery categoryQuery);
 
-    public Integer insert(Category category);
+    public Integer insert(CategoryDTO categoryDTO) throws IOException;
 
     public Integer update(Category category);
 

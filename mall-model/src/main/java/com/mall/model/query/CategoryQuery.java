@@ -1,6 +1,8 @@
 package com.mall.model.query;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mall.annotation.EQ;
+import com.mall.annotation.Like;
 import com.mall.model.bean.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,30 +30,27 @@ public class CategoryQuery extends AbstractQuery {
     /**
      * 类别编号
      */
+    @EQ
     private Long id;
     /**
      * 类别名称
      */
+    @Like
     private String name;
-    /**
-     * 商品图片
-     */
-    private String img;
-    /**
-     * 显示优化级
-     */
-    private Long priority;
     /**
      * 父类别编号
      */
+    @EQ
     private Long pid;
     /**
      * 状态：1上架，2下架
      */
-    private Integer status;
+    @EQ
+    private Integer status = 1;
     /**
      * 更新人
      */
+    @EQ
     private String updateBy;
     /**
      * 更新时间

@@ -87,7 +87,7 @@ public class AliOSSUtil {
         // 避免文件覆盖
         int i = fileName.lastIndexOf(".");
         String suffix = fileName.substring(i);
-        fileName = fileName.substring(0, i) + System.currentTimeMillis() + suffix;
+        fileName = fileName.substring(0, i) + "_" + System.currentTimeMillis() + suffix;
 
         // 把文件按照日期进行分类
         // 获取当前日期

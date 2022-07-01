@@ -1,6 +1,7 @@
 package com.mall.controller;
 
 import com.mall.model.Category;
+import com.mall.model.dto.CategoryDTO;
 import com.mall.model.query.CategoryQuery;
 import com.mall.service.CategoryService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -24,19 +26,19 @@ public class CategoryController {
     @Resource
     private CategoryService categoryService;
 
-    @GetMapping("/page")
+    @PostMapping("/page")
     public List<Category> select(@RequestBody CategoryQuery categoryQuery) {
         return categoryService.select(categoryQuery);
     }
 
     @GetMapping("/pid/{pid}")
     public List<Category> selectByPid(@PathVariable Long pid) {
-        return categoryService.select(CategoryQuery.builder().pid(pid).build());
+        return select(CategoryQuery.builder().pid(pid).build());
     }
 
     @PostMapping("/add")
-    public Integer insert(@RequestBody Category category) {
-        return categoryService.insert(category);
+    public Integer insert(@RequestBody CategoryDTO categoryDTO) throws IOException {
+        return categoryService.insert(categoryDTO);
     }
 
     @PostMapping("/update")

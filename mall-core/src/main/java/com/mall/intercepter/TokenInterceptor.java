@@ -1,8 +1,12 @@
 package com.mall.intercepter;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
+import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTUtil;
 import com.mall.annotation.NoAuthorization;
+import com.mall.model.bean.CurrentUser;
+import com.mall.threadlocal.CurrentThreadLocal;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -33,6 +37,9 @@ public class TokenInterceptor implements HandlerInterceptor {
                 // 验证token是否合法，合法的放行，不合法返回401（无权限）并拦截
                 boolean pass = JWTUtil.verify(token, tokenKey.getBytes());
                 if (pass) {
+                    JWT jwt = JWTUtil.parseToken(token);
+                    CurrentUser currentUser = JSONUtil.toBean(jwt.getPayloads().toString(), CurrentUser.class);
+                    CurrentThreadLocal.set(currentUser);
                     return true;
                 }
             }
