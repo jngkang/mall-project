@@ -68,7 +68,7 @@ const routes = [
         component: () => import("@/views/product/Index.vue"),
         meta: {
             title: "商品管理",
-            icon: "Document",
+            icon: "Menu",
             show: true,
             isFrame: true,
         },
@@ -79,7 +79,29 @@ const routes = [
                 component: () => import("@/views/product/Category.vue"),
                 meta: {
                     title: "品类管理",
-                    icon: "Document",
+                    icon: "Menu",
+                    show: true,
+                    isFrame: true,
+                },
+            },
+            {
+                path: '/goodsadd',
+                name: 'goodsadd',
+                component: () => import("@/views/product/GoodsAdd.vue"),
+                meta: {
+                    title: "商品添加",
+                    icon: "Plus",
+                    show: true,
+                    isFrame: true,
+                },
+            },
+            {
+                path: '/goods',
+                name: 'goods',
+                component: () => import("@/views/product/Goods.vue"),
+                meta: {
+                    title: "商品管理",
+                    icon: "Menu",
                     show: true,
                     isFrame: true,
                 },

@@ -111,7 +111,7 @@ onMounted(() => {
     http
         .post("/api/category/page", {})
         .then((res: any) => {
-            console.log(res);
+            // console.log(res);
             tableData.value = res
         })
         .catch((err: any) => {

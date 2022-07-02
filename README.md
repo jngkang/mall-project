@@ -27,3 +27,4 @@
   - 对axios进行了封装，封装后的文件放置在/http/index.ts中
 - 8、MD5加密
 - 9、Day.js日期格式化
+- 10、集成wangEditor5富文本框

@@ -2,12 +2,12 @@
     <el-menu
             active-text-color="#ffd04b"
             background-color="#545c64"
+            style="border-right: none;"
             class="el-menu-vertical-demo"
-            default-active="/"
+            :default-openeds="opends"
             text-color="#fff"
             @open="handleOpen"
             @close="handleClose"
-            style="border-right: none;"
             router
     >
         <div v-for="(item0, index0) in $router.options.routes" :key="index0">
@@ -35,6 +35,23 @@
 </template>
 
 <script lang="ts" setup>
+import {ref, onMounted, onBeforeMount} from "vue";
+import {useRoute, useRouter} from "vue-router";
+
+const route = useRoute();
+const router = useRouter();
+
+// 设置所有二级菜单自动展开
+const opends = ref([])
+onBeforeMount(() => {
+    router.options.routes.forEach(res => {
+        if (res.children != null) {
+            opends.value.push(res.path)
+        }
+    })
+    console.log(opends.value);
+})
+
 
 </script>
 

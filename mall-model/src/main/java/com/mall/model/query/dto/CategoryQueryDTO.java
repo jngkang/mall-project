@@ -51,6 +51,7 @@ public class CategoryQueryDTO extends AbstractQuery {
     /**
      * 检索的深度
      */
-    private Integer deep;
+    private Integer deep = Integer.MAX_VALUE;
+    ;
 }
 
