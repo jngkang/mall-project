@@ -28,3 +28,4 @@
 - 8、MD5加密
 - 9、Day.js日期格式化
 - 10、集成wangEditor5富文本框
+  - wangEditor5图片上传功能，图片上传到OSS

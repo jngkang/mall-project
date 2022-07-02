@@ -19,9 +19,9 @@
 
 <script>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-
 import {onBeforeUnmount, ref, shallowRef, onMounted} from 'vue'
 import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
+import {ElMessage} from 'element-plus'
 
 export default {
     components: { Editor, Toolbar },
@@ -33,7 +33,36 @@ export default {
         const valueHtml = ref('')
 
         const toolbarConfig = {}
-        const editorConfig = { placeholder: '请输入内容...' }
+        const editorConfig = {
+            placeholder: '请输入内容...',
+            MENU_CONF: {}
+        }
+
+        editorConfig.MENU_CONF['uploadImage'] = {
+            // 上传图片的配置
+            server: '/api/upload',
+            // 单个文件的最大体积限制，默认为 2M
+            maxFileSize: 10 * 1024 * 1024,
+            // 最多可上传几个文件，默认为 100
+            maxNumberOfFiles: 10,
+
+            // form-data fieldName ，默认值 'wangeditor-uploaded-image'
+            fieldName: 'file',
+
+            // 单个文件上传成功之后
+            onSuccess (file, res) {
+                ElMessage.success(`${file.name} 上传成功`, res)
+                console.log(`${file.name} 上传成功`, res)
+            },
+            // 单个文件上传失败
+            onFailed (file, res) {
+                ElMessage.error(`${file.name} 上传失败`, res)
+                console.log(`${file.name} 上传失败`, res)
+            },
+
+            // 小于该值就插入 base64 格式（而不上传），默认为 0
+            base64LimitSize: 5 * 1024 // 50kb
+        }
 
         // 组件销毁时，也及时销毁编辑器
         onBeforeUnmount(() => {
