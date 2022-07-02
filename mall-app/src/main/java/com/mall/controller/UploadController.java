@@ -1,6 +1,5 @@
 package com.mall.controller;
 
-import com.mall.annotation.NoAuthorization;
 import com.mall.annotation.NoWapper;
 import com.mall.utils.AliOSSUtil;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +20,6 @@ import java.io.IOException;
 @NoWapper
 public class UploadController {
 
-    @NoAuthorization
     @PostMapping("/upload")
     public String upload(MultipartFile file) {
         String res = null;

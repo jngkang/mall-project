@@ -22,6 +22,10 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import {onBeforeUnmount, ref, shallowRef, onMounted} from 'vue'
 import {Editor, Toolbar} from '@wangeditor/editor-for-vue'
 import {ElMessage} from 'element-plus'
+import {storeToRefs} from 'pinia/dist/pinia'
+import appStore from '../store/appStore'
+
+let { token } = storeToRefs(appStore())
 
 export default {
     components: { Editor, Toolbar },
@@ -58,6 +62,11 @@ export default {
             onFailed (file, res) {
                 ElMessage.error(`${file.name} 上传失败`, res)
                 console.log(`${file.name} 上传失败`, res)
+            },
+
+            // 自定义增加 http  header
+            headers: {
+                Authorization: token.value,
             },
 
             // 小于该值就插入 base64 格式（而不上传），默认为 0
