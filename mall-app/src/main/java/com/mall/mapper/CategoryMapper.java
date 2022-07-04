@@ -2,6 +2,7 @@ package com.mall.mapper;
 
 import com.mall.annotation.PageX;
 import com.mall.model.Category;
+import com.mall.model.CategoryStatusUpdater;
 import com.mall.model.query.CategoryQuery;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
@@ -28,4 +29,6 @@ public interface CategoryMapper {
     @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
     public Integer update(Category category);
 
+    @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
+    public Integer updateStatus(CategoryStatusUpdater categoryStatusUpdater);
 }

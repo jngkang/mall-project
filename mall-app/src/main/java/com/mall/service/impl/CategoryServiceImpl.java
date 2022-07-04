@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import com.mall.globel.Const;
 import com.mall.mapper.CategoryMapper;
 import com.mall.model.Category;
+import com.mall.model.CategoryStatusUpdater;
 import com.mall.model.dto.CategoryDTO;
 import com.mall.model.query.CategoryQuery;
 import com.mall.service.CategoryService;
@@ -42,21 +43,46 @@ public class CategoryServiceImpl implements CategoryService {
                 .name(categoryDTO.getName())
                 .priority(categoryDTO.getPriority())
                 .pid(categoryDTO.getPid())
-                .status(ObjectUtil.isEmpty(categoryDTO.getStatus()) ? 1 : categoryDTO.getStatus())
+                .status(categoryDTO.getStatus())
                 .build();
-        String[] dataArray = StrUtil.splitToArray(categoryDTO.getImg(), "base64,");
-        byte[] bytes = Base64.decode(dataArray[1]);
-        String imgName = System.currentTimeMillis() + "_" + categoryDTO.getImgName();
-        FileUtil.writeBytes(bytes, Const.IMG_SERVICE_PATH + imgName);
-        String img = StrUtil.format(Const.IMG_SERVICE + imgName);
-        category.setImg(img);
+        category.setImg(uploadImg(categoryDTO));
         category.setUpdateBy(CurrentThreadLocal.get().getUsername());
         category.setUpdateTime(LocalDateTime.now());
         return categoryMapper.insert(category);
     }
 
     @Override
-    public Integer update(Category category) {
+    public Integer update(CategoryDTO categoryDTO) {
+        if (ObjectUtil.isEmpty(categoryDTO.getStatus())) {
+            categoryDTO.setStatus(1);
+        }
+        Category category = Category.builder()
+                .id(categoryDTO.getId())
+                .name(categoryDTO.getName())
+                .priority(categoryDTO.getPriority())
+                .pid(categoryDTO.getPid())
+                .status(categoryDTO.getStatus())
+                .build();
+        category.setImg(uploadImg(categoryDTO));
+        category.setUpdateBy(CurrentThreadLocal.get().getUsername());
+        category.setUpdateTime(LocalDateTime.now());
         return categoryMapper.update(category);
+    }
+
+    @Override
+    public Integer updateStatus(CategoryStatusUpdater categoryStatusUpdater) {
+        return categoryMapper.updateStatus(categoryStatusUpdater);
+    }
+
+    private String uploadImg(CategoryDTO categoryDTO) {
+        if (categoryDTO.getImg().indexOf("base64") > 0) {
+            String[] dataArray = StrUtil.splitToArray(categoryDTO.getImg(), "base64,");
+            byte[] bytes = Base64.decode(dataArray[1]);
+            String imgName = System.currentTimeMillis() + "_" + categoryDTO.getImgName();
+            FileUtil.writeBytes(bytes, Const.IMG_SERVICE_PATH + imgName);
+            String img = StrUtil.format(Const.IMG_SERVICE + imgName);
+            return img;
+        }
+        return categoryDTO.getImg();
     }
 }

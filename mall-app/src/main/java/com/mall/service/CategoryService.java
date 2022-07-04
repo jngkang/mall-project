@@ -1,6 +1,7 @@
 package com.mall.service;
 
 import com.mall.model.Category;
+import com.mall.model.CategoryStatusUpdater;
 import com.mall.model.dto.CategoryDTO;
 import com.mall.model.query.CategoryQuery;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public interface CategoryService {
 
     public Integer insert(CategoryDTO categoryDTO) throws IOException;
 
-    public Integer update(Category category);
+    public Integer update(CategoryDTO categoryDTO);
+
+    public Integer updateStatus(CategoryStatusUpdater categoryStatusUpdater);
 
 }

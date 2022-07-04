@@ -4,7 +4,8 @@
             <el-steps
                     :active="active"
                     finish-status="success"
-                    style="margin: 20px 100px;"
+                    style="margin: 20px;"
+                    align-center
             >
                 <el-step title="基本信息"></el-step>
                 <el-step title="商品参数"></el-step>

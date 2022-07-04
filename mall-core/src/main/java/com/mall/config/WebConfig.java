@@ -15,7 +15,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // TODO 为了便于测试，暂时注释掉拦截
         HandlerInterceptor handlerInterceptor = new TokenInterceptor(tokenKey);
         registry.addInterceptor(handlerInterceptor)
                 // 拦截请求

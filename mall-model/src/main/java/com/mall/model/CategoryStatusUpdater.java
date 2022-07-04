@@ -1,4 +1,4 @@
-package com.mall.model.dto;
+package com.mall.model;
 
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
@@ -24,30 +24,17 @@ import java.io.Serializable;
 @Builder
 @ToString
 @Table(value = "tb_category")
-public class CategoryDTO implements Serializable {
+public class CategoryStatusUpdater implements Serializable {
 
+    /**
+     * 类别编号
+     */
     @PK
     private Long id;
-    /**
-     * 类别名称
-     */
-    private String name;
-    /**
-     * 商品图片
-     */
-    private String img;
-    private String imgName;
-    /**
-     * 显示优化级
-     */
-    private Long priority;
-    /**
-     * 父类别编号
-     */
-    private Long pid;
     /**
      * 状态：1上架，2下架
      */
     private Integer status;
+
 }
 

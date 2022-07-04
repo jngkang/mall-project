@@ -2,6 +2,7 @@ package com.mall.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mall.annotation.Column;
+import com.mall.annotation.PK;
 import com.mall.annotation.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,6 +32,7 @@ public class Category implements Serializable {
     /**
      * 类别编号
      */
+    @PK
     private Long id;
     /**
      * 类别名称
