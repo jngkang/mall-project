@@ -54,14 +54,13 @@ export default {
             fieldName: 'file',
 
             // 单个文件上传成功之后
-            onSuccess (file, res) {
-                ElMessage.success(`${file.name} 上传成功`, res)
-                console.log(`${file.name} 上传成功`, res)
+            onSuccess (res) {
+                console.log(res)
+                ElMessage.success('上传成功')
             },
             // 单个文件上传失败
-            onFailed (file, res) {
-                ElMessage.error(`${file.name} 上传失败`, res)
-                console.log(`${file.name} 上传失败`, res)
+            onFailed (res) {
+                ElMessage.error('上传失败' + res)
             },
 
             // 自定义增加 http  header
