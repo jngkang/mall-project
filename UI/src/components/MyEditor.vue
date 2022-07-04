@@ -50,6 +50,7 @@ export default {
             // 最多可上传几个文件，默认为 100
             maxNumberOfFiles: 10,
 
+
             // form-data fieldName ，默认值 'wangeditor-uploaded-image'
             fieldName: 'file',
 
@@ -69,7 +70,10 @@ export default {
             },
 
             // 小于该值就插入 base64 格式（而不上传），默认为 0
-            base64LimitSize: 5 * 1024 // 50kb
+            base64LimitSize: 5 * 1024, // 50kb
+
+            // 超时时间，默认为 10 秒
+            timeout: 30 * 1000, // 5 秒
         }
 
         // 组件销毁时，也及时销毁编辑器

@@ -91,7 +91,7 @@ const routes = [
                 meta: {
                     title: "商品添加",
                     icon: "Plus",
-                    show: true,
+                    show: false,
                     isFrame: true,
                 },
             },
