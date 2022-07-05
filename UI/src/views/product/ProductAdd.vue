@@ -8,8 +8,6 @@
                     align-center
             >
                 <el-step title="基本信息"></el-step>
-                <el-step title="商品参数"></el-step>
-                <el-step title="商品属性"></el-step>
                 <el-step title="商品图片"></el-step>
                 <el-step title="商品内容"></el-step>
             </el-steps>
@@ -23,13 +21,10 @@
                         <div class="h510">
                             <div>
                                 <el-row>
-                                    <el-col :span="1"></el-col>
-                                    <el-col :span="10">
+                                    <el-col :span="2"></el-col>
+                                    <el-col :span="17">
                                         <el-form-item label="商品名称">
                                             <el-input v-model="form.name"></el-input>
-                                        </el-form-item>
-                                        <el-form-item label="单位">
-                                            <el-input v-model="form.unit"></el-input>
                                         </el-form-item>
                                         <el-form-item label="类别">
                                             <el-tree-select
@@ -39,33 +34,31 @@
                                                     check-strictly=true
                                             ></el-tree-select>
                                         </el-form-item>
-                                        <el-form-item label="产地">
-                                            <el-input v-model="form.addr"></el-input>
+                                        <el-form-item label="价格">
+                                            <el-input v-model="form.price"></el-input>
                                         </el-form-item>
-                                    </el-col>
-                                    <el-col :span="1"></el-col>
-                                    <el-col :span="10">
-                                        <el-form-item label="副标题">
-                                            <el-input v-model="form.caption"></el-input>
+                                        <el-form-item label="优先级">
+                                            <el-input v-model="form.seq"></el-input>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
                             </div>
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="商品参数">
-                        <div class="h510">
-                            2
-                        </div>
-                    </el-tab-pane>
-                    <el-tab-pane label="商品属性">
-                        <div class="h510">
-                            3
-                        </div>
-                    </el-tab-pane>
                     <el-tab-pane label="商品图片">
-                        <div class="h510">
-                            4
+                        <div class="h510" style="margin: 0 30px;">
+                            <el-upload
+                                    class="avatar-uploader"
+                                    ref="uploadRef"
+                                    :auto-upload="false"
+                                    :show-file-list="false"
+                                    :on-change="onchange"
+                            >
+                                <img v-if="form.img" :src="form.img" class="avatar"/>
+                                <el-icon v-else class="avatar-uploader-icon">
+                                    <Plus/>
+                                </el-icon>
+                            </el-upload>
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="商品内容">
@@ -100,13 +93,17 @@ const router = useRouter();
 const active = ref(0);
 const tabIndex = ref("0");
 
+// 获取子组件富文本编辑器中的数据
+const editor = ref(null);
+
 const form = ref({
     name: '',
-    caption: '',
     categoryId: '0',
-    unit: '',
-    addr: '',
-    info: '',
+    price: '',
+    seq: '',
+    brief: '',
+    img: '',
+    imgName: '',
 })
 
 const categoryData = ref([
@@ -136,7 +133,7 @@ const change = () => {
 // 点击下一个时
 const tabsNext = () => {
     let temp = Number(active.value) + Number(1)
-    if (temp > 4) {
+    if (temp > 2) {
         temp = 0
         // return
     }
@@ -144,35 +141,72 @@ const tabsNext = () => {
     tabIndex.value = String(temp)
 }
 
-// 获取子组件富文本编辑器中的数据
-const editor = ref(null);
+const onchange = (file: any, fileList: any) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(file.raw);
+    reader.onload = () => {
+        form.value.img = reader.result;
+        form.value.imgName = file.raw.name;
+    };
+};
+
 const submit = () => {
-    form.value.info = editor.value.valueHtml
+    form.value.brief = editor.value.valueHtml
     http
-        .post("/api/goods/add", {
+        .post("/api/product/add", {
             name: form.value.name,
-            caption: form.value.caption,
             categoryId: form.value.categoryId,
-            unit: form.value.unit,
-            addr: form.value.addr,
-            info: form.value.info,
+            price: form.value.price,
+            seq: form.value.seq,
+            brief: form.value.brief,
+            img: form.value.img,
+            imgName: form.value.imgName,
         })
         .then((res: any) => {
             if (res == 'ok') {
                 ElMessage.success("商品添加成功")
                 setTimeout(() => {
-                    router.push({name: "index"}), 1000
+                    router.push({name: "productlist"}), 1000
                 })
             }
         })
         .catch((err: any) => {
-            ElMessage.error("数据初始化失败")
+            ElMessage.error("商品添加失败")
         });
 }
 </script>
 
-<style>
+<style scoped>
     .h510 {
         height: 510px;
+    }
+
+    .avatar-uploader .avatar {
+        width: 200px;
+        height: 200px;
+        display: block;
+    }
+</style>
+
+<style>
+    .avatar-uploader .el-upload {
+        border: 1px dashed var(--el-border-color);
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: var(--el-transition-duration-fast);
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: var(--el-color-primary);
+    }
+
+    .el-icon.avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 200px;
+        height: 200px;
+        text-align: center;
     }
 </style>

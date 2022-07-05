@@ -1,8 +1,10 @@
 package com.mall.mapper;
 
 import com.mall.annotation.PageX;
-import com.mall.model.Goods;
-import com.mall.model.query.GoodsQuery;
+import com.mall.model.Product;
+import com.mall.model.dto.ProductDTO;
+import com.mall.model.query.ProductQuery;
+import com.mall.model.status.ProductStatusUpdater;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,16 +18,19 @@ import java.util.List;
  * @date 2022-06-10 14:46
  */
 @Mapper
-public interface GoodsMapper {
+public interface ProductMapper {
 
     @PageX
     @SelectProvider(type = SqlGen.class, method = SqlGen.SELECT)
-    public List<Goods> select(GoodsQuery goodsQuery);
+    public List<ProductDTO> select(ProductQuery productQuery);
 
     @InsertProvider(type = SqlGen.class, method = SqlGen.INSERT)
-    public Integer insert(Goods goods);
+    public Integer insert(Product product);
 
     @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
-    public Integer update(Goods goods);
+    public Integer update(Product product);
+
+    @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
+    public Integer updateStatus(ProductStatusUpdater productStatusUpdater);
 
 }
