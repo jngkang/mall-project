@@ -28,7 +28,7 @@
             </el-header>
             <el-container style="height: calc(100vh - 60px);">
                 <!-- 左 -->
-                <el-aside width="200px" style="background-color: #545c64;">
+                <el-aside :width="isCollapse ?'64px':'200px'" style="background-color: #545c64;">
                     <menu-vue></menu-vue>
                 </el-aside>
                 <!-- 右 -->
@@ -48,10 +48,12 @@
 import MenuVue from '@/components/Menu.vue';
 import NavHeadVue from "@/components/NavHead.vue";
 import {ref, onMounted, watch} from "vue"
-import appStore from "@/store/appStore";
-import {storeToRefs} from "pinia";
 import {useRoute, useRouter} from "vue-router";
 import {ElMessage} from "element-plus/es";
+import appStore from "@/store/appStore";
+import {storeToRefs} from "pinia";
+
+let {menuCollapse} = storeToRefs(appStore());
 
 const route = useRoute();
 const router = useRouter();
@@ -59,12 +61,21 @@ const router = useRouter();
 let {user} = storeToRefs(appStore());
 
 const nickname = ref('游客')
+const isCollapse = ref(false)
 
 onMounted(() => {
     if (user.value.nickname != '') {
         nickname.value = user.value.nickname;
     }
+    isCollapse.value = menuCollapse.value
 });
+
+watch(
+    () => menuCollapse.value,
+    (newValue, oldValue) => {
+        isCollapse.value = menuCollapse.value
+    }
+);
 
 watch(
     () => user.value.nickname,
@@ -93,5 +104,13 @@ const logout = () => {
         color: var(--el-color-primary);
         display: flex;
         align-items: center;
+    }
+
+    .el-aside {
+        transition: width 0.15s;
+        -webkit-transition: width 0.15s;
+        -moz-transition: width 0.15s;
+        -webkit-transition: width 0.15s;
+        -o-transition: width 0.15s;
     }
 </style>

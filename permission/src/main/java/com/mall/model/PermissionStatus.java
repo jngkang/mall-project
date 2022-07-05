@@ -12,10 +12,10 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
- * 商品类别表(TbCategory)实体类
+ * 权限表(Permission)实体类
  *
  * @author makejava
- * @since 2022-06-30 15:16:21
+ * @since 2022-07-04 19:47:19
  */
 @Setter
 @Getter
@@ -23,16 +23,16 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_category")
-public class CategoryStatusUpdater implements Serializable {
+@Table(value = "tb_permission")
+public class PermissionStatus implements Serializable {
 
     /**
-     * 类别编号
+     * 编号
      */
     @PK
     private Long id;
     /**
-     * 状态：1上架，2下架
+     * 启用状态：0禁用  1启用
      */
     private Integer status;
 

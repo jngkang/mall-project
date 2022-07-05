@@ -85,9 +85,9 @@ const routes = [
                 },
             },
             {
-                path: '/goodsadd',
-                name: 'goodsadd',
-                component: () => import("@/views/product/GoodsAdd.vue"),
+                path: '/productadd',
+                name: 'productadd',
+                component: () => import("@/views/product/ProductAdd.vue"),
                 meta: {
                     title: "商品添加",
                     icon: "Plus",
@@ -96,9 +96,9 @@ const routes = [
                 },
             },
             {
-                path: '/goods',
-                name: 'goods',
-                component: () => import("@/views/product/Goods.vue"),
+                path: '/productlist',
+                name: 'productlist',
+                component: () => import("@/views/product/ProductList.vue"),
                 meta: {
                     title: "商品管理",
                     icon: "Menu",

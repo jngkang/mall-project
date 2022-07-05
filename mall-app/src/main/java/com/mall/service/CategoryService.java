@@ -1,7 +1,6 @@
 package com.mall.service;
 
-import com.mall.model.Category;
-import com.mall.model.CategoryStatusUpdater;
+import com.mall.model.status.CategoryStatusUpdater;
 import com.mall.model.dto.CategoryDTO;
 import com.mall.model.query.CategoryQuery;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import java.util.List;
 @Service
 public interface CategoryService {
 
-    public List<Category> select(CategoryQuery categoryQuery);
+    public List<CategoryDTO> select(CategoryQuery categoryQuery);
 
     public Integer insert(CategoryDTO categoryDTO) throws IOException;
 

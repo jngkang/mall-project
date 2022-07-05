@@ -4,10 +4,8 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.mall.annotation.NoAuthorization;
 import com.mall.enums.CategoryStatus;
-import com.mall.model.Category;
-import com.mall.model.CategoryStatusUpdater;
+import com.mall.model.status.CategoryStatusUpdater;
 import com.mall.model.dto.CategoryDTO;
 import com.mall.model.query.CategoryQuery;
 import com.mall.model.query.dto.CategoryQueryDTO;
@@ -32,7 +30,6 @@ public class CategoryController {
     @Resource
     private CategoryService categoryService;
 
-    @NoAuthorization
     @PostMapping("/page")
     public List select(@RequestBody CategoryQueryDTO categoryQueryDTO) {
         CategoryQuery query = new CategoryQuery();
@@ -44,7 +41,7 @@ public class CategoryController {
         query.setUpdateTime(categoryQueryDTO.getUpdateTime());
 
         // 创建一个集合
-        List<Category> categoryList = categoryService.select(query);
+        List<CategoryDTO> categoryList = categoryService.select(query);
 
         if (categoryQueryDTO.getIsTree() == 1) {
             //配置

@@ -52,7 +52,6 @@ public class CategoryQueryDTO extends AbstractQuery {
      * 检索的深度
      */
     private Integer deep = Integer.MAX_VALUE;
-
     /**
      * 判断是否需要返回树形结构的数据
      */

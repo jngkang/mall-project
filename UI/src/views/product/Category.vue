@@ -24,7 +24,6 @@
                 style="width: 100%; margin-bottom: 20px; margin-top: 20px;"
                 stripe="true"
                 row-key="id"
-                border
         >
             <el-table-column prop="id" label="#ID" sortable align="center" width="80"></el-table-column>
             <el-table-column prop="name" label="品类名称" sortable align="center"></el-table-column>
@@ -216,6 +215,7 @@ const init = () => {
             // console.log(res);
             // 表格
             tableData.value = res
+            categoryData.value = [{value: "0", label: "根节点"}]
             // 下拉菜单
             categoryData.value = categoryData.value.concat(res)
         })
@@ -333,6 +333,7 @@ const confirmClick = () => {
         .then((res: any) => {
             ElMessage.success("添加成功")
             cancelClick()
+            init()
         })
         .catch((err: any) => {
             ElMessage.error("添加失败")

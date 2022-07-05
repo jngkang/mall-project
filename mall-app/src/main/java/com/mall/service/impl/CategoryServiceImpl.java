@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import com.mall.globel.Const;
 import com.mall.mapper.CategoryMapper;
 import com.mall.model.Category;
-import com.mall.model.CategoryStatusUpdater;
+import com.mall.model.status.CategoryStatusUpdater;
 import com.mall.model.dto.CategoryDTO;
 import com.mall.model.query.CategoryQuery;
 import com.mall.service.CategoryService;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,8 +31,22 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<Category> select(CategoryQuery categoryQuery) {
-        return categoryMapper.select(categoryQuery);
+    public List<CategoryDTO> select(CategoryQuery categoryQuery) {
+        List<CategoryDTO> res = new ArrayList<>();
+        List<Category> lists = categoryMapper.select(categoryQuery);
+        for (Category list : lists) {
+            CategoryDTO temp = new CategoryDTO();
+            temp.setId(list.getId());
+            temp.setName(list.getName());
+            temp.setImg(list.getImg());
+            temp.setPriority(list.getPriority());
+            temp.setPid(list.getPid());
+            temp.setStatus(list.getStatus());
+            temp.setUpdateBy(list.getUpdateBy());
+            temp.setUpdateTime(list.getUpdateTime());
+            res.add(temp);
+        }
+        return res;
     }
 
     @Override
