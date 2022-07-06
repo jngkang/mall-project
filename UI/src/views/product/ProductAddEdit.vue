@@ -82,7 +82,7 @@
 
 <script lang="ts" setup>
 import MyEditor from '@/components/MyEditor.vue'
-import {onMounted, ref, watch} from 'vue'
+import {onMounted, ref} from 'vue'
 import http from "../../http";
 import {ElMessage} from "element-plus/es";
 import {useRoute, useRouter} from "vue-router";
@@ -94,7 +94,7 @@ const active = ref(0);
 const tabIndex = ref("0");
 
 // 获取子组件富文本编辑器中的数据
-const editor = ref(null);
+const editor = ref();
 
 const form = ref({
     id: '',
@@ -114,16 +114,10 @@ const categoryData = ref([
 onMounted(() => {
     initCategory()
     form.value.id = <string>route.query.id;
-    if (form.value.id != '') {
+    if (form.value.id != null || form.value.id != undefined) {
         queryInfoById()
     }
 })
-
-// watch(() => form.value.brief, (newValue, oldValue) => {
-//         console.log(newValue);
-//         editor.value.valueHtml = newValue;
-//     }
-// );
 
 const initCategory = () => {
     http
@@ -137,7 +131,6 @@ const initCategory = () => {
 }
 
 const queryInfoById = () => {
-    console.log(form.value.id);
     http
         .post("/api/product/page", {
             id: form.value.id,
@@ -150,6 +143,10 @@ const queryInfoById = () => {
             form.value.seq = res[0].seq
             form.value.brief = res[0].brief
             form.value.img = res[0].img
+
+            editor.value.valueHtml = res[0].brief
+
+            console.log(editor.value.valueHtml);
         })
         .catch((err: any) => {
             ElMessage.error("数据初始化失败")
@@ -187,7 +184,7 @@ const onchange = (file: any, fileList: any) => {
 
 const submit = () => {
     form.value.brief = editor.value.valueHtml
-    if (form.value.id == '') {
+    if (form.value.id == null) {
         http
             .post("/api/product/add", {
                 name: form.value.name,
@@ -235,6 +232,16 @@ const submit = () => {
             });
     }
 
+    // const reset = () => {
+    //     form.value.id = ''
+    //     form.value.name = ''
+    //     form.value.categoryId = ''
+    //     form.value.price = ''
+    //     form.value.seq = ''
+    //     form.value.brief = ''
+    //     form.value.img = ''
+    //     form.value.imgName = ''
+    // }
 
 }
 </script>
