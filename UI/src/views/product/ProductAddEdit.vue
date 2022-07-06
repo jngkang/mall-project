@@ -114,6 +114,7 @@ const categoryData = ref([
 onMounted(() => {
     initCategory()
     form.value.id = <string>route.query.id;
+    console.log(form.value.id);
     if (form.value.id != null || form.value.id != undefined) {
         queryInfoById()
     }
@@ -136,6 +137,7 @@ const queryInfoById = () => {
             id: form.value.id,
         })
         .then((res: any) => {
+            console.log(res);
             form.value.id = res[0].id
             form.value.name = res[0].name
             form.value.categoryId = res[0].categoryId
@@ -149,6 +151,7 @@ const queryInfoById = () => {
             console.log(editor.value.valueHtml);
         })
         .catch((err: any) => {
+            console.log(err);
             ElMessage.error("数据初始化失败")
         });
 }
@@ -231,17 +234,6 @@ const submit = () => {
                 ElMessage.error("商品添加失败")
             });
     }
-
-    // const reset = () => {
-    //     form.value.id = ''
-    //     form.value.name = ''
-    //     form.value.categoryId = ''
-    //     form.value.price = ''
-    //     form.value.seq = ''
-    //     form.value.brief = ''
-    //     form.value.img = ''
-    //     form.value.imgName = ''
-    // }
 
 }
 </script>

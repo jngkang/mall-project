@@ -48,7 +48,7 @@
             <el-table-column label="操作" align="center" width="150" fixed="right">
                 <template #default="scope">
                     <el-tooltip class="box-item" content="查看商品信息" placement="top">
-                        <el-button :icon="Document" circle></el-button>
+                        <el-button :icon="Document" circle @click="showInfo(scope.row)"></el-button>
                     </el-tooltip>
                     <el-tooltip class="box-item" content="编辑" placement="top">
                         <el-button type="primary" :icon="Edit" circle @click.prevent="openEditView(scope.row)"></el-button>
@@ -84,6 +84,19 @@
             ></el-pagination>
         </div>
     </div>
+
+    <div>
+        <el-drawer v-model="InfoDrawer"
+                   direction="ltr"
+                   size="50%"
+        >
+            <template #default>
+                <div>
+                    <span v-html="info"></span>
+                </div>
+            </template>
+        </el-drawer>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -100,6 +113,9 @@ const route = useRoute();
 const router = useRouter();
 
 const tableData = ref([])
+
+const InfoDrawer = ref(false)
+const info = ref('')
 
 // 总数据量
 const total = ref(0)
@@ -125,6 +141,12 @@ onMounted(() => {
     tableDataInit()
     initCategory()
 })
+
+const showInfo = (row) => {
+    // console.log(row.brief);
+    info.value = row.brief
+    InfoDrawer.value = true;
+}
 
 const initCategory = () => {
     // 初始化表格数据
