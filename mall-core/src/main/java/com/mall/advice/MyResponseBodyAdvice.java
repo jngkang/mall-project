@@ -59,14 +59,18 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
         httpResponse.setMessage(message);
         // 从ThreadLocal中获取分页数据，并且进行分页
         PageXInfo pageXInfo = PageXThreadLocal.get();
-        if (pageXInfo != null) {
-            Dict dic = Dict.create()
-                    .set("total", pageXInfo.getTotal())
-                    .set("pages", pageXInfo.getPages())
-                    .set("items", body);
-            httpResponse.setData(dic);
-        } else {
-            httpResponse.setData(body);
+        try {
+            if (pageXInfo != null) {
+                Dict dic = Dict.create()
+                        .set("total", pageXInfo.getTotal())
+                        .set("pages", pageXInfo.getPages())
+                        .set("items", body);
+                httpResponse.setData(dic);
+            } else {
+                httpResponse.setData(body);
+            }
+        } finally {
+            PageXThreadLocal.remove();
         }
         if (selectedConverterType == StringHttpMessageConverter.class) {
             return JSONUtil.toJsonStr(httpResponse);
