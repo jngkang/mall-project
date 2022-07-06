@@ -2,7 +2,6 @@ package com.mall.mapper;
 
 import com.mall.annotation.PageX;
 import com.mall.model.Product;
-import com.mall.model.dto.ProductDTO;
 import com.mall.model.query.ProductQuery;
 import com.mall.model.status.ProductStatusUpdater;
 import com.mall.utils.SqlGen;
@@ -22,7 +21,7 @@ public interface ProductMapper {
 
     @PageX
     @SelectProvider(type = SqlGen.class, method = SqlGen.SELECT)
-    public List<ProductDTO> select(ProductQuery productQuery);
+    public List<Product> select(ProductQuery productQuery);
 
     @InsertProvider(type = SqlGen.class, method = SqlGen.INSERT)
     public Integer insert(Product product);

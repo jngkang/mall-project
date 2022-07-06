@@ -1,6 +1,7 @@
 package com.mall.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.mall.enums.ProductStatus;
 import com.mall.mapper.ProductMapper;
 import com.mall.model.Product;
 import com.mall.model.dto.ProductDTO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +29,24 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> select(ProductQuery productQuery) {
-        return productMapper.select(productQuery);
+        List<ProductDTO> res = new ArrayList<>();
+        List<Product> products = productMapper.select(productQuery);
+        for (Product product : products) {
+            ProductDTO temp = new ProductDTO();
+            temp.setId(product.getId());
+            temp.setName(product.getName());
+            temp.setSeq(product.getSeq());
+            temp.setStatus(product.getStatus());
+            temp.setStatusX(ProductStatus.findByCode(product.getStatus()).getName());
+            temp.setLastUpdateBy(product.getLastUpdateBy());
+            temp.setLastUpdateTime(product.getLastUpdateTime());
+            temp.setCategoryId(product.getCategoryId());
+            temp.setBrief(product.getBrief());
+            temp.setImg(product.getImg());
+            temp.setPrice(product.getPrice());
+            res.add(temp);
+        }
+        return res;
     }
 
     @Override

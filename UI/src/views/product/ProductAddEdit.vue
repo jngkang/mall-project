@@ -82,7 +82,7 @@
 
 <script lang="ts" setup>
 import MyEditor from '@/components/MyEditor.vue'
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import http from "../../http";
 import {ElMessage} from "element-plus/es";
 import {useRoute, useRouter} from "vue-router";
@@ -118,6 +118,12 @@ onMounted(() => {
         queryInfoById()
     }
 })
+
+// watch(() => form.value.brief, (newValue, oldValue) => {
+//         console.log(newValue);
+//         editor.value.valueHtml = newValue;
+//     }
+// );
 
 const initCategory = () => {
     http

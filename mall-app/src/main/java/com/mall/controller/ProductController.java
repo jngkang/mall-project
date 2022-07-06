@@ -1,5 +1,6 @@
 package com.mall.controller;
 
+import com.mall.annotation.NoAuthorization;
 import com.mall.enums.ProductStatus;
 import com.mall.model.Product;
 import com.mall.model.dto.ProductDTO;
@@ -30,6 +31,7 @@ public class ProductController {
     private CategoryService categoryService;
 
     @PostMapping("/page")
+    @NoAuthorization
     public List select(@RequestBody ProductQuery query) {
         // 创建一个集合
         List<ProductDTO> productList = productService.select(query);

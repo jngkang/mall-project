@@ -4,9 +4,10 @@ import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.github.pagehelper.Page;
+import com.mall.PageXInfo;
 import com.mall.annotation.NoWapper;
 import com.mall.model.bean.HttpResponse;
+import com.mall.threadlocal.PageXThreadLocal;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -56,13 +57,12 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
         // 默认空值时，统一使用Hutool工具提供的统一空值常量
         String message = StrUtil.EMPTY;
         httpResponse.setMessage(message);
-        if (body instanceof Page) {
-            Page page = (Page) body;
-            int pages = page.getPages();//总页数
-            long total = page.getTotal();//总条数
+        // 从ThreadLocal中获取分页数据，并且进行分页
+        PageXInfo pageXInfo = PageXThreadLocal.get();
+        if (pageXInfo != null) {
             Dict dic = Dict.create()
-                    .set("total", total)
-                    .set("pages", pages)
+                    .set("total", pageXInfo.getTotal())
+                    .set("pages", pageXInfo.getPages())
                     .set("items", body);
             httpResponse.setData(dic);
         } else {
