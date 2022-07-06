@@ -1,4 +1,4 @@
-package com.mall.model.bean;
+package com.mall.model;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
 package com.mall.model.query.dto;
 
-import com.mall.model.bean.AbstractQuery;
+import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

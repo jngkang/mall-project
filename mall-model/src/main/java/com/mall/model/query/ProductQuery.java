@@ -5,7 +5,7 @@ import com.mall.annotation.EQ;
 import com.mall.annotation.Like;
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
-import com.mall.model.bean.AbstractQuery;
+import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

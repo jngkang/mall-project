@@ -5,7 +5,7 @@ import cn.hutool.json.JSONUtil;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTUtil;
 import com.mall.annotation.NoAuthorization;
-import com.mall.model.bean.CurrentUser;
+import com.mall.model.CurrentUser;
 import com.mall.threadlocal.CurrentThreadLocal;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;

@@ -3,7 +3,7 @@ package com.mall.model.query;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mall.annotation.EQ;
 import com.mall.annotation.Like;
-import com.mall.model.bean.AbstractQuery;
+import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

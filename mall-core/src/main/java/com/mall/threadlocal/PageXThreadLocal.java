@@ -1,6 +1,6 @@
 package com.mall.threadlocal;
 
-import com.mall.PageXInfo;
+import com.mall.model.PageXInfo;
 
 /**
  * 使用ThreadLocal临时保存Token中的数据，达成随处可用效果

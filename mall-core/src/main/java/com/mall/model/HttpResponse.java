@@ -1,4 +1,4 @@
-package com.mall.model.bean;
+package com.mall.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

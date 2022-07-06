@@ -10,11 +10,11 @@ import com.mall.globel.Const;
  * @date 2022-07-05 17:49
  */
 public class UploadUtil {
-    public static String uploadImg(String base64, String name) {
+    public static String uploadImg(String base64, String fileName) {
         if (base64.indexOf("base64") > 0) {
             String[] dataArray = StrUtil.splitToArray(base64, "base64,");
             byte[] bytes = Base64.decode(dataArray[1]);
-            String imgName = System.currentTimeMillis() + "_" + name;
+            String imgName = System.currentTimeMillis() + "_" + fileName;
             FileUtil.writeBytes(bytes, Const.IMG_SERVICE_PATH + imgName);
             String img = Const.IMG_SERVICE + imgName;
             return img;
