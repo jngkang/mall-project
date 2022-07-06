@@ -1,7 +1,6 @@
 package com.mall.controller;
 
 import com.mall.annotation.NoAuthorization;
-import com.mall.enums.ProductStatus;
 import com.mall.model.Product;
 import com.mall.model.dto.ProductDTO;
 import com.mall.model.query.ProductQuery;
@@ -33,12 +32,7 @@ public class ProductController {
     @PostMapping("/page")
     @NoAuthorization
     public List select(@RequestBody ProductQuery query) {
-        // 创建一个集合
-        List<ProductDTO> productList = productService.select(query);
-        for (ProductDTO item : productList) {
-            item.setStatusX(ProductStatus.findByCode(item.getStatus()).getName());
-        }
-        return productList;
+        return productService.select(query);
     }
 
     @PostMapping("/add")
