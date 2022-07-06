@@ -1,9 +1,8 @@
 package com.mall.controller;
 
-import com.mall.annotation.PageX;
 import com.mall.enums.ProductStatus;
+import com.mall.model.Product;
 import com.mall.model.dto.ProductDTO;
-import com.mall.model.query.CategoryQuery;
 import com.mall.model.query.ProductQuery;
 import com.mall.model.status.ProductStatusUpdater;
 import com.mall.service.CategoryService;
@@ -30,14 +29,11 @@ public class ProductController {
     @Resource
     private CategoryService categoryService;
 
-    @PageX
     @PostMapping("/page")
     public List select(@RequestBody ProductQuery query) {
         // 创建一个集合
         List<ProductDTO> productList = productService.select(query);
         for (ProductDTO item : productList) {
-            String categoryName = categoryService.select(CategoryQuery.builder().id(item.getCategoryId()).build()).get(0).getName();
-            item.setCategoryName(categoryName);
             item.setStatusX(ProductStatus.findByCode(item.getStatus()).getName());
         }
         return productList;
@@ -46,6 +42,11 @@ public class ProductController {
     @PostMapping("/add")
     public String insert(@RequestBody ProductDTO productDTO) {
         return productService.insert(productDTO);
+    }
+
+    @PostMapping("/update")
+    public String updateStatus(@RequestBody Product product) {
+        return productService.update(product);
     }
 
     @PostMapping("/status/update")

@@ -97,6 +97,7 @@ const tabIndex = ref("0");
 const editor = ref(null);
 
 const form = ref({
+    id: '',
     name: '',
     categoryId: '0',
     price: '',
@@ -111,6 +112,14 @@ const categoryData = ref([
 ]);
 
 onMounted(() => {
+    initCategory()
+    form.value.id = <string>route.query.id;
+    if (form.value.id != '') {
+        queryInfoById()
+    }
+})
+
+const initCategory = () => {
     http
         .post("/api/category/page", {})
         .then((res: any) => {
@@ -119,7 +128,27 @@ onMounted(() => {
         .catch((err: any) => {
             ElMessage.error("数据初始化失败")
         });
-})
+}
+
+const queryInfoById = () => {
+    console.log(form.value.id);
+    http
+        .post("/api/product/page", {
+            id: form.value.id,
+        })
+        .then((res: any) => {
+            form.value.id = res[0].id
+            form.value.name = res[0].name
+            form.value.categoryId = res[0].categoryId
+            form.value.price = res[0].price
+            form.value.seq = res[0].seq
+            form.value.brief = res[0].brief
+            form.value.img = res[0].img
+        })
+        .catch((err: any) => {
+            ElMessage.error("数据初始化失败")
+        });
+}
 
 // 当子页面发生改变时
 const change = () => {
@@ -137,7 +166,7 @@ const tabsNext = () => {
         temp = 0
         // return
     }
-    active.value = temp
+    // active.value = temp
     tabIndex.value = String(temp)
 }
 
@@ -152,27 +181,55 @@ const onchange = (file: any, fileList: any) => {
 
 const submit = () => {
     form.value.brief = editor.value.valueHtml
-    http
-        .post("/api/product/add", {
-            name: form.value.name,
-            categoryId: form.value.categoryId,
-            price: form.value.price,
-            seq: form.value.seq,
-            brief: form.value.brief,
-            img: form.value.img,
-            imgName: form.value.imgName,
-        })
-        .then((res: any) => {
-            if (res == 'ok') {
-                ElMessage.success("商品添加成功")
-                setTimeout(() => {
-                    router.push({name: "productlist"}), 1000
-                })
-            }
-        })
-        .catch((err: any) => {
-            ElMessage.error("商品添加失败")
-        });
+    if (form.value.id == '') {
+        http
+            .post("/api/product/add", {
+                name: form.value.name,
+                categoryId: form.value.categoryId,
+                price: form.value.price,
+                seq: form.value.seq,
+                brief: form.value.brief,
+                img: form.value.img,
+                imgName: form.value.imgName,
+            })
+            .then((res: any) => {
+                if (res == 'ok') {
+                    ElMessage.success("商品添加成功")
+                    setTimeout(() => {
+                        router.push({name: "productlist"}), 1000
+                    })
+                }
+            })
+            .catch((err: any) => {
+                ElMessage.error("商品添加失败")
+            });
+    } else {
+        console.log(form.value);
+        http
+            .post("/api/product/update", {
+                id: form.value.id,
+                name: form.value.name,
+                categoryId: form.value.categoryId,
+                price: form.value.price,
+                seq: form.value.seq,
+                brief: form.value.brief,
+                img: form.value.img,
+                imgName: form.value.imgName,
+            })
+            .then((res: any) => {
+                if (res == 'ok') {
+                    ElMessage.success("商品修改成功")
+                    setTimeout(() => {
+                        router.push({name: "productlist"}), 1000
+                    })
+                }
+            })
+            .catch((err: any) => {
+                ElMessage.error("商品添加失败")
+            });
+    }
+
+
 }
 </script>
 

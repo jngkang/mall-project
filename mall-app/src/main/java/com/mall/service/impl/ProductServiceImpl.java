@@ -51,8 +51,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Integer update(Product product) {
-        return productMapper.update(product);
+    public String update(Product product) {
+        if (ObjectUtil.isEmpty(product.getStatus())) {
+            product.setStatus(1);
+        }
+        product.setLastUpdateBy(CurrentThreadLocal.get().getUsername());
+        product.setLastUpdateTime(LocalDateTime.now());
+        return productMapper.update(product) > 0 ? "ok" : "err";
     }
 
     @Override

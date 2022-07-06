@@ -12,7 +12,6 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * 商品表(Product)实体类
@@ -39,7 +38,7 @@ public class ProductDTO implements Serializable {
      */
     @Column(value = "category_id")
     private Long categoryId;
-    private String categoryName;
+    //private String categoryName;
     /**
      * 商品名称
      */

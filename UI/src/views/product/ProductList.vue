@@ -1,5 +1,25 @@
 <template>
     <div>
+        <div style="text-align: center;">
+            <el-form :inline="true" :model="queryForm" class="demo-form-inline">
+                <el-form-item>
+                    <el-input v-model="queryForm.query" placeholder="品类名称"></el-input>
+                </el-form-item>
+                <el-form-item label="商品品类">
+                    <el-tree-select
+                            v-model="queryForm.categoryId"
+                            :data="categoryData"
+                            style="width: 100%;"
+                            check-strictly=true
+                            placeholder="请选择品类..."
+                            clearable
+                    ></el-tree-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="tableDataInit">查询</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
         <el-button type="primary" @click="addClick">添加</el-button>
         <el-table
                 :data="tableData"
@@ -8,10 +28,9 @@
                 row-key="id"
                 border
         >
-            <el-table-column prop="id" label="#ID" align="center" width="80"></el-table-column>
-            <el-table-column prop="name" label="商品名称" align="center"></el-table-column>
-            <el-table-column prop="categoryName" label="类别" sortable align="center"></el-table-column>
-            <el-table-column label="图片" align="center">
+            <el-table-column prop="id" label="#ID" align="center" width="80" fixed="left"></el-table-column>
+            <el-table-column prop="name" label="商品名称" align="center" fixed="left"></el-table-column>
+            <el-table-column label="图片" align="center" width="100">
                 <template #default="scope">
                     <el-image
                             style="width: 60px; height: 60px"
@@ -22,11 +41,11 @@
                     ></el-image>
                 </template>
             </el-table-column>
-            <el-table-column prop="price" label="价格" sortable align="center"></el-table-column>
+            <el-table-column prop="price" label="价格" sortable align="center" width="100"></el-table-column>
             <el-table-column prop="statusX" label="状态" align="center" width="80"></el-table-column>
             <el-table-column prop="lastUpdateBy" label="最后一次更新者" align="center"></el-table-column>
             <el-table-column prop="lastUpdateTime" label="最后一次更新时间" align="center" :formatter="dateFormatter"></el-table-column>
-            <el-table-column label="操作" align="center" width="150">
+            <el-table-column label="操作" align="center" width="150" fixed="right">
                 <template #default="scope">
                     <el-tooltip class="box-item" content="查看商品信息" placement="top">
                         <el-button :icon="Document" circle></el-button>
@@ -89,8 +108,37 @@ const pageSize = ref(5)
 // 页码
 const currentPage = ref(1);
 
+const queryForm = reactive({
+    query: "",
+    categoryId: "",
+});
+
+const categoryData = ref([
+    {value: "0", label: "根节点"},
+]);
+
 const dateFormatter = (row: any) => {
     return dayjs(row.updateTime).format('YYYY-MM-DD HH:mm:ss');
+}
+
+onMounted(() => {
+    tableDataInit()
+    initCategory()
+})
+
+const initCategory = () => {
+    // 初始化表格数据
+    http
+        .post("/api/category/page", {})
+        .then((res: any) => {
+            // console.log(res);
+            categoryData.value = [{value: "0", label: "根节点"}]
+            // 下拉菜单
+            categoryData.value = categoryData.value.concat(res)
+        })
+        .catch((err: any) => {
+            ElMessage.error("数据初始化失败")
+        });
 }
 
 const handleSizeChange = () => {
@@ -118,18 +166,15 @@ const softDelete = (row) => {
         });
 }
 
-onMounted(() => {
-    tableDataInit()
-})
-
 const tableDataInit = () => {
     http
         .post("/api/product/page", {
+            name: queryForm.query,
+            categoryId: queryForm.categoryId,
             pageSize: pageSize.value,
             pageNum: currentPage.value,
         })
         .then((res: any) => {
-            console.log(res);
             total.value = res.total
             tableData.value = res.items
         })
@@ -138,9 +183,13 @@ const tableDataInit = () => {
         });
 }
 
+const openEditView = (row) => {
+    router.push({name: "productaddedit", query: {id: row.id}})
+}
+
 const addClick = () => {
     setTimeout(() => {
-        router.push({name: "productadd"}), 1000
+        router.push({name: "productaddedit"}), 1000
     })
 }
 </script>

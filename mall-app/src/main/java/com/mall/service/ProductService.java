@@ -19,7 +19,7 @@ public interface ProductService {
 
     public String insert(ProductDTO productDTO);
 
-    public Integer update(Product product);
+    public String update(Product product);
 
     public String updateStatus(ProductStatusUpdater productStatusUpdater);
 

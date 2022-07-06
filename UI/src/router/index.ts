@@ -85,11 +85,11 @@ const routes = [
                 },
             },
             {
-                path: '/productadd',
-                name: 'productadd',
-                component: () => import("@/views/product/ProductAdd.vue"),
+                path: '/productaddedit',
+                name: 'productaddedit',
+                component: () => import("@/views/product/ProductAddEdit.vue"),
                 meta: {
-                    title: "商品添加",
+                    title: "商品编辑",
                     icon: "Plus",
                     show: false,
                     isFrame: true,
