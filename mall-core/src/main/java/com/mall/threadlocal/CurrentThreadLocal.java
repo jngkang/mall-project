@@ -19,7 +19,7 @@ public class CurrentThreadLocal {
     public static CurrentUser get() {
         CurrentUser currentUser = threadLocal.get();
         if (currentUser == null) {
-            currentUser = new CurrentUser(0L, "default@default.com", "default");
+            currentUser = new CurrentUser(0L, "default", "default");
         }
         return currentUser;
     }
