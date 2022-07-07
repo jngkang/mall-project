@@ -5,7 +5,7 @@
             <el-header style="background-color: slategray;">
                 <el-row :gutter="20" align="middle">
                     <el-col :span="4">
-                        <img src="../assets/logo.png" alt="" width="55" height="55">
+                        <img src="../public/assets/logo.png" alt="" width="55" height="55">
                     </el-col>
                     <el-col :span="16"></el-col>
                     <el-col :span="4" style="text-align: right;">
