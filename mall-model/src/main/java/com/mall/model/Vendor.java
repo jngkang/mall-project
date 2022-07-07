@@ -50,6 +50,10 @@ public class Vendor implements Serializable {
      */
     private String district;
     /**
+     * 详细地址
+     */
+    private String address;
+    /**
      * 排序
      */
     private Integer seq;

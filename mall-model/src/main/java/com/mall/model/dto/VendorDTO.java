@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -50,6 +49,10 @@ public class VendorDTO implements Serializable {
      * 县/区邮编
      */
     private String district;
+    /**
+     * 详细地址
+     */
+    private String address;
     /**
      * 排序
      */

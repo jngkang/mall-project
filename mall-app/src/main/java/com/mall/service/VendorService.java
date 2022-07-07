@@ -1,6 +1,7 @@
 package com.mall.service;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.mall.enums.VendorStatus;
 import com.mall.mapper.VendorMapper;
 import com.mall.model.Vendor;
 import com.mall.model.dto.VendorDTO;
@@ -26,6 +27,7 @@ public class VendorService {
         for (Vendor vendor : vendors) {
             VendorDTO vendorDTO = new VendorDTO();
             vendorDTO.setStatus(vendor.getStatus());
+            vendorDTO.setStatusX(VendorStatus.findByCode(vendor.getStatus()).getName());
             vendorDTO.setLastUpdateBy(vendor.getLastUpdateBy());
             vendorDTO.setLastUpdateTime(vendor.getLastUpdateTime());
             vendorDTO.setId(vendor.getId());
@@ -33,6 +35,7 @@ public class VendorService {
             vendorDTO.setProvince(vendor.getProvince());
             vendorDTO.setCity(vendor.getCity());
             vendorDTO.setDistrict(vendor.getDistrict());
+            vendorDTO.setAddress(vendor.getAddress());
             vendorDTO.setSeq(vendor.getSeq());
             res.add(vendorDTO);
         }
@@ -52,6 +55,7 @@ public class VendorService {
         vendor.setProvince(vendorDTO.getProvince());
         vendor.setCity(vendorDTO.getCity());
         vendor.setDistrict(vendorDTO.getDistrict());
+        vendor.setAddress(vendorDTO.getAddress());
         vendor.setSeq(vendorDTO.getSeq());
         return vendorMapper.insert(vendor);
     }
@@ -69,6 +73,7 @@ public class VendorService {
         vendor.setProvince(vendorDTO.getProvince());
         vendor.setCity(vendorDTO.getCity());
         vendor.setDistrict(vendorDTO.getDistrict());
+        vendor.setAddress(vendorDTO.getAddress());
         vendor.setSeq(vendorDTO.getSeq());
         return vendorMapper.update(vendor);
     }
