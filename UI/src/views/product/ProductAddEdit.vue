@@ -114,10 +114,10 @@ const categoryData = ref([
 onMounted(() => {
     initCategory()
     form.value.id = <string>route.query.id;
-    console.log(form.value.id);
     if (form.value.id != null || form.value.id != undefined) {
         queryInfoById()
     }
+
 })
 
 const initCategory = () => {
@@ -127,7 +127,7 @@ const initCategory = () => {
             categoryData.value = categoryData.value.concat(res)
         })
         .catch((err: any) => {
-            ElMessage.error("数据初始化失败")
+            ElMessage.error("数据初始化失败" + err)
         });
 }
 
@@ -137,22 +137,19 @@ const queryInfoById = () => {
             id: form.value.id,
         })
         .then((res: any) => {
-            console.log(res);
             form.value.id = res[0].id
             form.value.name = res[0].name
-            form.value.categoryId = res[0].categoryId
+            form.value.categoryId = '' + res[0].categoryId
             form.value.price = res[0].price
             form.value.seq = res[0].seq
             form.value.brief = res[0].brief
             form.value.img = res[0].img
 
-            editor.value.valueHtml = res[0].brief
-
             console.log(editor.value.valueHtml);
+            editor.value.valueHtml = res[0].brief
         })
         .catch((err: any) => {
-            console.log(err);
-            ElMessage.error("数据初始化失败")
+            ElMessage.error("数据初始化失败" + err)
         });
 }
 
@@ -210,7 +207,6 @@ const submit = () => {
                 ElMessage.error("商品添加失败")
             });
     } else {
-        console.log(form.value);
         http
             .post("/api/product/update", {
                 id: form.value.id,
@@ -231,7 +227,7 @@ const submit = () => {
                 }
             })
             .catch((err: any) => {
-                ElMessage.error("商品添加失败")
+                ElMessage.error("商品添加失败" + err)
             });
     }
 

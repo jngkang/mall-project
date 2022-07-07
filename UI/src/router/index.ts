@@ -109,6 +109,30 @@ const routes = [
         ]
     },
     {
+        path: '/vendor',
+        name: 'vendor',
+        component: () => import("@/views/vendor/Index.vue"),
+        meta: {
+            title: "供应商管理",
+            icon: "Menu",
+            show: true,
+            isFrame: true,
+        },
+        children: [
+            {
+                path: '/vendor/list',
+                name: 'vendor/list',
+                component: () => import("@/views/vendor/List.vue"),
+                meta: {
+                    title: "供应商管理",
+                    icon: "Menu",
+                    show: true,
+                    isFrame: true,
+                },
+            },
+        ]
+    },
+    {
         path: '/about',
         name: 'about',
         component: () => import("@/views/About.vue"),
@@ -131,7 +155,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHashHistory('/'),
+    history: createWebHistory('/'),
     routes
 })
 
