@@ -40,7 +40,7 @@
                             <el-button @click="resetForm(loginFormRef)">重置</el-button>
                         </div>
                         <div style="text-align: center; padding-top: 20px;">
-                            <el-link type="warning" href="/login">已有账号，去登录</el-link>
+                            <el-link type="warning" href="/#/login">已有账号，去登录</el-link>
                         </div>
                     </el-form>
                 </el-card>
@@ -51,11 +51,11 @@
 
 <script lang="ts" setup>
 import {ref, reactive, onMounted} from "vue";
-import { ElMessage } from "element-plus";
-import type {FormInstance, FormRules } from "element-plus";
+import {ElMessage} from "element-plus";
+import type {FormInstance, FormRules} from "element-plus";
 import http from "@/http/index";
 import {useRoute, useRouter} from "vue-router";
-import { Md5 } from 'ts-md5';
+import {Md5} from 'ts-md5';
 
 const route = useRoute();
 const router = useRouter();

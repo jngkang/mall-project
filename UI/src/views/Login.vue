@@ -23,7 +23,7 @@
                             <el-button @click="resetForm(loginFormRef)">重置</el-button>
                         </div>
                         <div style="text-align: center; padding-top: 20px;">
-                            <el-link type="warning" href="/register">还没有账号，去注册</el-link>
+                            <el-link type="warning" href="/#/register">还没有账号，去注册</el-link>
                         </div>
                     </el-form>
                 </el-card>
