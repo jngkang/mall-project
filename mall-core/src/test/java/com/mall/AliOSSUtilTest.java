@@ -3,22 +3,9 @@ package com.mall;
 import com.mall.utils.AliOSSUtil;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 class AliOSSUtilTest {
-
-    /**
-     * @param
-     * @return void
-     * @description 文件上传
-     */
-    @Test
-    void upload() throws FileNotFoundException {
-        //上传文件
-        String url = AliOSSUtil.upload("D:\\1.txt", "2.txts");
-        System.out.println(url);
-    }
 
     @Test
     void listFileName() {
@@ -44,8 +31,8 @@ class AliOSSUtilTest {
     }
 
     @Test
-    void delelteFile() {
-        AliOSSUtil.delelteFile("test/KK1650521987347.jpg");
+    void deleteFile() {
+        AliOSSUtil.deleteFile("test/KK1650521987347.jpg");
     }
 
     @Test

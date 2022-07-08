@@ -144,7 +144,7 @@ const softDelete = (row) => {
 
 const tableDataInit = () => {
     http
-        .post("/api/vendor/page", {
+        .post("/api/vendor/select", {
             name: queryForm.query,
             pageSize: pageSize.value,
             pageNum: currentPage.value,

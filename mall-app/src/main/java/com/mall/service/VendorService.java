@@ -31,7 +31,7 @@ public class VendorService {
         vendorQuery.setStatus(vendorQueryDTO.getStatus());
         vendorQuery.setOrderByBlock(vendorQueryDTO.getOrderByBlock());
         vendorQuery.setPageNum(vendorQueryDTO.getPageNum());
-        vendorQuery.setPageSize(vendorQueryDTO.getStatus());
+        vendorQuery.setPageSize(vendorQueryDTO.getPageSize());
 
         List<Vendor> vendors = vendorMapper.select(vendorQuery);
         for (Vendor vendor : vendors) {

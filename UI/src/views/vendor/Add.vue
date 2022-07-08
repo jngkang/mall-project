@@ -70,7 +70,7 @@ const handleClose = () => {
 
 const confirmClick = () => {
     http
-        .post("/api/vendor/add", {
+        .post("/api/vendor/insert", {
             name: form.name,
             province: form.CAD[0],
             city: form.CAD[1],
