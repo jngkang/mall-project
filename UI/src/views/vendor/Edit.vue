@@ -64,10 +64,11 @@ const form = reactive({
 
 const getById = (row) => {
     http
-        .post("/api/vendor/page", {
+        .post("/api/vendor/select", {
             id: row.id,
         })
         .then((res: any) => {
+            console.log(res);
             form.id = res[0].id
             form.name = res[0].name
             form.address = res[0].address
