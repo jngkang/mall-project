@@ -1,12 +1,10 @@
 package com.mall.mapper;
 
-import com.mall.model.query.UserQuery;
+import com.mall.query.UserQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserMapperTest {

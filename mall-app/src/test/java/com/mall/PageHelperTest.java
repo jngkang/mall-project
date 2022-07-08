@@ -1,7 +1,7 @@
 package com.mall;
 
 import com.mall.mapper.UserMapper;
-import com.mall.model.query.UserQuery;
+import com.mall.query.UserQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

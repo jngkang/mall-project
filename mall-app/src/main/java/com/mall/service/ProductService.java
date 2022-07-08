@@ -1,9 +1,9 @@
 package com.mall.service;
 
-import com.mall.model.Product;
-import com.mall.model.dto.ProductDTO;
-import com.mall.model.query.ProductQuery;
-import com.mall.model.status.ProductStatusUpdater;
+import com.mall.entity.Product;
+import com.mall.model.ProductDTO;
+import com.mall.query.ProductQuery;
+import com.mall.status.ProductStatusUpdater;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

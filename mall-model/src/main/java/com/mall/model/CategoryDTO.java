@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mall.annotation.Column;
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
+import com.mall.enums.CategoryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,11 +28,8 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 @Table(value = "tb_category")
-public class Category implements Serializable {
+public class CategoryDTO implements Serializable {
 
-    /**
-     * 类别编号
-     */
     @PK
     private Long id;
     /**
@@ -42,6 +40,7 @@ public class Category implements Serializable {
      * 商品图片
      */
     private String img;
+    private String imgName;
     /**
      * 显示优化级
      */
@@ -54,6 +53,9 @@ public class Category implements Serializable {
      * 状态：1上架，2下架
      */
     private Integer status;
+
+    private String statusX;
+
     /**
      * 更新人
      */
@@ -64,5 +66,9 @@ public class Category implements Serializable {
     @Column("update_time")
     private LocalDateTime updateTime;
 
+    public void setStatus(Integer status) {
+        this.status = status;
+        this.statusX = CategoryStatus.findByCode(status).getName();
+    }
 }
 

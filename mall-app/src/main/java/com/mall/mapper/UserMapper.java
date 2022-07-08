@@ -1,9 +1,9 @@
 package com.mall.mapper;
 
 import com.mall.annotation.PageX;
-import com.mall.model.User;
-import com.mall.model.query.UserQuery;
-import com.mall.model.dto.UserLoginDTO;
+import com.mall.entity.User;
+import com.mall.model.UserLoginDTO;
+import com.mall.query.UserQuery;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;

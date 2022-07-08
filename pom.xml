@@ -19,6 +19,7 @@
         <module>mall-app</module>
         <module>mall-core</module>
         <module>permission</module>
+        <module>mall-entity</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>

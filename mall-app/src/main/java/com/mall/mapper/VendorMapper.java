@@ -1,9 +1,9 @@
 package com.mall.mapper;
 
 import com.mall.annotation.PageX;
-import com.mall.model.Vendor;
-import com.mall.model.query.VendorQuery;
-import com.mall.model.status.VendorStatusUpdater;
+import com.mall.entity.Vendor;
+import com.mall.query.VendorQuery;
+import com.mall.status.VendorStatusUpdater;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;

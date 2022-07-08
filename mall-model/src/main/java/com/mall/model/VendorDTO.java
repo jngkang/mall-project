@@ -1,4 +1,4 @@
-package com.mall.model.dto;
+package com.mall.model;
 
 import com.mall.annotation.Column;
 import com.mall.annotation.PK;
@@ -14,19 +14,19 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 商品表(Product)实体类
+ * (TbVendor)实体类
  *
  * @author makejava
- * @since 2022-07-05 15:59:59
+ * @since 2022-07-07 10:28:10
  */
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_product")
-public class ProductDTO implements Serializable {
+@Table(value="tb_vendor")
+public class VendorDTO implements Serializable {
 
     /**
      * ID
@@ -34,34 +34,31 @@ public class ProductDTO implements Serializable {
     @PK
     private Long id;
     /**
-     * 列别编号
-     */
-    @Column(value = "category_id")
-    private Long categoryId;
-    //private String categoryName;
-    /**
-     * 商品名称
+     * 供应商名称
      */
     private String name;
     /**
-     * 商品图片
+     * 省邮编
      */
-    private String img;
-    private String imgName;
+    private String province;
     /**
-     * 商品价格
+     * 市邮编
      */
-    private Double price;
+    private String city;
     /**
-     * 商品内容
+     * 县/区邮编
      */
-    private String brief;
+    private String district;
+    /**
+     * 详细地址
+     */
+    private String address;
     /**
      * 排序
      */
     private Integer seq;
     /**
-     * 商品状态
+     * 状态
      */
     private Integer status;
     private String statusX;

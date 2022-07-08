@@ -1,8 +1,8 @@
 package com.mall.service;
 
-import com.mall.model.status.CategoryStatusUpdater;
-import com.mall.model.dto.CategoryDTO;
-import com.mall.model.query.CategoryQuery;
+import com.mall.model.CategoryDTO;
+import com.mall.query.CategoryQuery;
+import com.mall.status.CategoryStatusUpdater;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

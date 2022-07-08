@@ -1,9 +1,9 @@
 package com.mall.mapper;
 
 import com.mall.annotation.PageX;
-import com.mall.model.Category;
-import com.mall.model.status.CategoryStatusUpdater;
-import com.mall.model.query.CategoryQuery;
+import com.mall.entity.Category;
+import com.mall.query.CategoryQuery;
+import com.mall.status.CategoryStatusUpdater;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;

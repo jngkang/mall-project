@@ -1,15 +1,12 @@
-package com.mall.model.dto;
+package com.mall.query;
 
-import com.mall.annotation.PK;
-import com.mall.annotation.Table;
+import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.io.Serializable;
 
 /**
  * 用户表(TbUser)实体类
@@ -23,13 +20,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_user")
-public class UserRegisterDTO implements Serializable {
-    /**
-     * 编号
-     */
-    @PK(autoIncrement = true)
-    private Long id;
+public class UserQuery extends AbstractQuery {
+
     /**
      * 账号
      */
@@ -38,12 +30,8 @@ public class UserRegisterDTO implements Serializable {
      * 密码
      */
     private String password;
-    private String password2;
-    /**
-     * 邮箱
-     */
+
     private String email;
-    private String emailCaptcha;
 
 }
 

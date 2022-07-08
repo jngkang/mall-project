@@ -1,4 +1,4 @@
-package com.mall.model;
+package com.mall.entity;
 
 import com.mall.annotation.Column;
 import com.mall.annotation.PK;

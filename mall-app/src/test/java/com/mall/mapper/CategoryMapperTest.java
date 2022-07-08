@@ -1,6 +1,6 @@
 package com.mall.mapper;
 
-import com.mall.model.status.CategoryStatusUpdater;
+import com.mall.status.CategoryStatusUpdater;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -4,13 +4,13 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.mall.entity.Category;
 import com.mall.globel.Const;
 import com.mall.mapper.CategoryMapper;
-import com.mall.model.Category;
-import com.mall.model.status.CategoryStatusUpdater;
-import com.mall.model.dto.CategoryDTO;
-import com.mall.model.query.CategoryQuery;
+import com.mall.model.CategoryDTO;
+import com.mall.query.CategoryQuery;
 import com.mall.service.CategoryService;
+import com.mall.status.CategoryStatusUpdater;
 import com.mall.threadlocal.CurrentThreadLocal;
 import org.springframework.stereotype.Service;
 

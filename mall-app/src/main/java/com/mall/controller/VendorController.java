@@ -1,10 +1,10 @@
 package com.mall.controller;
 
 import com.mall.annotation.NoAuthorization;
-import com.mall.model.dto.VendorDTO;
-import com.mall.model.query.VendorQuery;
-import com.mall.model.status.VendorStatusUpdater;
+import com.mall.model.VendorDTO;
+import com.mall.query.VendorQueryDTO;
 import com.mall.service.VendorService;
+import com.mall.status.VendorStatusUpdater;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +21,13 @@ public class VendorController {
     private VendorService vendorService;
 
     @NoAuthorization
-    @PostMapping("/page")
-    public List select(@RequestBody VendorQuery vendorQuery) {
-        return vendorService.select(vendorQuery);
+    @PostMapping("/select")
+    public List select(@RequestBody VendorQueryDTO vendorQueryDTO) {
+        return vendorService.select(vendorQueryDTO);
     }
 
     @NoAuthorization
-    @PostMapping("/add")
+    @PostMapping("/insert")
     public Integer insert(@RequestBody VendorDTO vendorDTO) {
         return vendorService.insert(vendorDTO);
     }

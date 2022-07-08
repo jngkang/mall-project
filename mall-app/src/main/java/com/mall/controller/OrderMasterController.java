@@ -1,7 +1,7 @@
 package com.mall.controller;
 
-import com.mall.model.OrderMaster;
-import com.mall.model.query.OrderMasterQuery;
+import com.mall.entity.OrderMaster;
+import com.mall.query.OrderMasterQuery;
 import com.mall.service.OrderMasterService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

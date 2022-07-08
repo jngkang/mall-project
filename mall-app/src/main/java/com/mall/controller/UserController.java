@@ -1,8 +1,8 @@
 package com.mall.controller;
 
 import com.mall.annotation.NoAuthorization;
-import com.mall.model.dto.UserLoginDTO;
-import com.mall.model.dto.UserRegisterDTO;
+import com.mall.model.UserLoginDTO;
+import com.mall.model.UserRegisterDTO;
 import com.mall.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

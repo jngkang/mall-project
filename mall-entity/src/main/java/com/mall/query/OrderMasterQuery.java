@@ -1,4 +1,4 @@
-package com.mall.model.query;
+package com.mall.query;
 
 import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
@@ -8,30 +8,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * 用户表(TbUser)实体类
- *
- * @author makejava
- * @since 2022-06-28 13:17:49
- */
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-public class UserQuery extends AbstractQuery {
+public class OrderMasterQuery extends AbstractQuery {
 
+    private Long id;
     /**
-     * 账号
+     * 姓名
      */
-    private String username;
+    private String receiver;
     /**
-     * 密码
+     * 电话号码
      */
-    private String password;
-
-    private String email;
+    private String phoneNumber;
+    /**
+     * 地址
+     */
+    private String address;
 
 }
 

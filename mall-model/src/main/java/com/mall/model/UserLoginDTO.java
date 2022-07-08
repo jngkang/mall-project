@@ -1,4 +1,4 @@
-package com.mall.model.dto;
+package com.mall.model;
 
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;

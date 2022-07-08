@@ -2,7 +2,7 @@ package com.mall.model;
 
 import java.io.Serializable;
 
-public abstract class AbstractQuery implements Serializable {
+public abstract class AbstractQueryDTO implements Serializable {
 
     private Integer pageNum;
     private Integer pageSize;

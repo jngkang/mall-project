@@ -1,4 +1,4 @@
-package com.mall.model.status;
+package com.mall.status;
 
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
@@ -12,27 +12,27 @@ import lombok.ToString;
 import java.io.Serializable;
 
 /**
- * 商品类别表(TbCategory)实体类
+ * 商品表(Product)实体类
  *
  * @author makejava
- * @since 2022-06-30 15:16:21
+ * @since 2022-07-05 15:59:59
  */
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_category")
-public class CategoryStatusUpdater implements Serializable {
+@Table(value = "tb_product")
+public class ProductStatusUpdater implements Serializable {
 
     /**
-     * 类别编号
+     * ID
      */
     @PK
     private Long id;
     /**
-     * 状态：1上架，2下架
+     * 商品状态
      */
     private Integer status;
 

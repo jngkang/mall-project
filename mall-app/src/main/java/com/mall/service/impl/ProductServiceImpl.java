@@ -1,13 +1,13 @@
 package com.mall.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.mall.entity.Product;
 import com.mall.enums.ProductStatus;
 import com.mall.mapper.ProductMapper;
-import com.mall.model.Product;
-import com.mall.model.dto.ProductDTO;
-import com.mall.model.query.ProductQuery;
-import com.mall.model.status.ProductStatusUpdater;
+import com.mall.model.ProductDTO;
+import com.mall.query.ProductQuery;
 import com.mall.service.ProductService;
+import com.mall.status.ProductStatusUpdater;
 import com.mall.threadlocal.CurrentThreadLocal;
 import com.mall.util.UploadUtil;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,9 @@
-package com.mall.model.dto;
+package com.mall.query;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mall.annotation.Column;
-import com.mall.annotation.PK;
-import com.mall.annotation.Table;
-import com.mall.enums.CategoryStatus;
+import com.mall.annotation.EQ;
+import com.mall.annotation.Like;
+import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -27,48 +25,38 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_category")
-public class CategoryDTO implements Serializable {
+public class CategoryQuery extends AbstractQuery {
 
-    @PK
+    /**
+     * 类别编号
+     */
+    @EQ
     private Long id;
     /**
      * 类别名称
      */
+    @Like
     private String name;
-    /**
-     * 商品图片
-     */
-    private String img;
-    private String imgName;
-    /**
-     * 显示优化级
-     */
-    private Long priority;
     /**
      * 父类别编号
      */
+    @EQ
     private Long pid;
     /**
      * 状态：1上架，2下架
      */
-    private Integer status;
-
-    private String statusX;
-
+    @EQ
+    private Integer status = 1;
     /**
      * 更新人
      */
-    @Column("update_by")
+    @EQ
     private String updateBy;
-
+    /**
+     * 更新时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column("update_time")
     private LocalDateTime updateTime;
 
-    public void setStatus(Integer status) {
-        this.status = status;
-        this.statusX = CategoryStatus.findByCode(status).getName();
-    }
 }
 

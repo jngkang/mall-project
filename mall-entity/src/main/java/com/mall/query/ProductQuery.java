@@ -1,5 +1,6 @@
-package com.mall.model.query;
+package com.mall.query;
 
+import com.mall.annotation.Column;
 import com.mall.annotation.EQ;
 import com.mall.annotation.Like;
 import com.mall.annotation.PK;
@@ -13,19 +14,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * (TbVendor)实体类
+ * 商品表(Product)实体类
  *
  * @author makejava
- * @since 2022-07-07 10:28:10
+ * @since 2022-07-05 15:59:59
  */
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value="tb_vendor")
-public class VendorQuery extends AbstractQuery {
+@Table(value = "tb_product")
+public class ProductQuery extends AbstractQuery {
 
     /**
      * ID
@@ -34,15 +35,29 @@ public class VendorQuery extends AbstractQuery {
     @EQ
     private Long id;
     /**
-     * 供应商名称
+     * 列别编号
+     */
+    @Column(value = "category_id")
+    @EQ
+    private Long categoryId;
+    /**
+     * 商品名称
      */
     @Like
     private String name;
     /**
-     * 状态
+     * 商品价格
+     */
+    private Double price;
+    /**
+     * 商品内容
+     */
+    @Like
+    private String brief;
+    /**
+     * 状态：1上架，2下架
      */
     @EQ
-    private Integer status;
-
+    private Integer status = 1;
 }
 

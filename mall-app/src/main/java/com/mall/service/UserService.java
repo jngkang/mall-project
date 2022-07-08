@@ -1,7 +1,7 @@
 package com.mall.service;
 
-import com.mall.model.dto.UserLoginDTO;
-import com.mall.model.dto.UserRegisterDTO;
+import com.mall.model.UserLoginDTO;
+import com.mall.model.UserRegisterDTO;
 import org.springframework.stereotype.Service;
 
 /**

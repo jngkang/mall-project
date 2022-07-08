@@ -11,31 +11,39 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+/**
+ * 用户表(TbUser)实体类
+ *
+ * @author makejava
+ * @since 2022-06-28 13:17:49
+ */
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_order_master")
-public class OrderMaster implements Serializable {
+@Table(value = "tb_user")
+public class UserRegisterDTO implements Serializable {
     /**
      * 编号
      */
     @PK(autoIncrement = true)
     private Long id;
     /**
-     * 姓名
+     * 账号
      */
-    private String receiver;
+    private String username;
     /**
-     * 电话号码
+     * 密码
      */
-    private String phoneNumber;
+    private String password;
+    private String password2;
     /**
-     * 地址
+     * 邮箱
      */
-    private String address;
+    private String email;
+    private String emailCaptcha;
 
 }
 

@@ -1,17 +1,17 @@
-package com.mall.model.query;
+package com.mall.model;
 
 import com.mall.annotation.Column;
-import com.mall.annotation.EQ;
-import com.mall.annotation.Like;
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
-import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 商品表(Product)实体类
@@ -26,25 +26,28 @@ import lombok.ToString;
 @Builder
 @ToString
 @Table(value = "tb_product")
-public class ProductQuery extends AbstractQuery {
+public class ProductDTO implements Serializable {
 
     /**
      * ID
      */
     @PK
-    @EQ
     private Long id;
     /**
      * 列别编号
      */
     @Column(value = "category_id")
-    @EQ
     private Long categoryId;
+    //private String categoryName;
     /**
      * 商品名称
      */
-    @Like
     private String name;
+    /**
+     * 商品图片
+     */
+    private String img;
+    private String imgName;
     /**
      * 商品价格
      */
@@ -52,12 +55,26 @@ public class ProductQuery extends AbstractQuery {
     /**
      * 商品内容
      */
-    @Like
     private String brief;
     /**
-     * 状态：1上架，2下架
+     * 排序
      */
-    @EQ
-    private Integer status = 1;
+    private Integer seq;
+    /**
+     * 商品状态
+     */
+    private Integer status;
+    private String statusX;
+    /**
+     * 最后更新者
+     */
+    @Column(value = "last_update_by")
+    private String lastUpdateBy;
+    /**
+     * 最后更新时间
+     */
+    @Column(value = "last_update_time")
+    private LocalDateTime lastUpdateTime;
+
 }
 

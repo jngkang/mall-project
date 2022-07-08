@@ -1,12 +1,13 @@
 package com.mall.service;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.mall.entity.Vendor;
 import com.mall.enums.VendorStatus;
 import com.mall.mapper.VendorMapper;
-import com.mall.model.Vendor;
-import com.mall.model.dto.VendorDTO;
-import com.mall.model.query.VendorQuery;
-import com.mall.model.status.VendorStatusUpdater;
+import com.mall.model.VendorDTO;
+import com.mall.query.VendorQuery;
+import com.mall.query.VendorQueryDTO;
+import com.mall.status.VendorStatusUpdater;
 import com.mall.threadlocal.CurrentThreadLocal;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,17 @@ public class VendorService {
     @Resource
     private VendorMapper vendorMapper;
 
-    public List<VendorDTO> select(VendorQuery vendorQuery) {
+    public List<VendorDTO> select(VendorQueryDTO vendorQueryDTO) {
         List<VendorDTO> res = new ArrayList<>();
+
+        VendorQuery vendorQuery = new VendorQuery();
+        vendorQuery.setId(vendorQueryDTO.getId());
+        vendorQuery.setName(vendorQueryDTO.getName());
+        vendorQuery.setStatus(vendorQueryDTO.getStatus());
+        vendorQuery.setOrderByBlock(vendorQueryDTO.getOrderByBlock());
+        vendorQuery.setPageNum(vendorQueryDTO.getPageNum());
+        vendorQuery.setPageSize(vendorQueryDTO.getStatus());
+
         List<Vendor> vendors = vendorMapper.select(vendorQuery);
         for (Vendor vendor : vendors) {
             VendorDTO vendorDTO = new VendorDTO();

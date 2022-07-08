@@ -1,7 +1,7 @@
 package com.mall.service;
 
-import com.mall.model.OrderMaster;
-import com.mall.model.query.OrderMasterQuery;
+import com.mall.entity.OrderMaster;
+import com.mall.query.OrderMasterQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

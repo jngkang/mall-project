@@ -1,7 +1,7 @@
 package com.mall.service;
 
 import com.mall.mapper.ProductMapper;
-import com.mall.model.query.ProductQuery;
+import com.mall.query.ProductQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

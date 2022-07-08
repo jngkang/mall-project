@@ -53,7 +53,7 @@ public class SqlGen {
         String queryClassName = query.getClass().getName();
         // TODO 根更据不同项目的规定，此处需要根据项目需求设置包路径
         // 根据query类获取实体类名
-        String modelClassName = StrUtil.sub(queryClassName, 0, queryClassName.length() - 5).replace(".query", "");
+        String modelClassName = StrUtil.sub(queryClassName, 0, queryClassName.length() - 5).replace("query", "entity");
         //String modelClassName = StrUtil.sub(queryClassName, 0, queryClassName.length() - 5).replace("query", "model");
         // 先去查询是否已经生成过SQL语句，如果没有再进行生成sql语句
         String res = genSql.get(modelClassName + SqlGen.SELECT);

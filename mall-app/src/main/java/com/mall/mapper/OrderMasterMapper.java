@@ -1,8 +1,8 @@
 package com.mall.mapper;
 
 import com.mall.annotation.PageX;
-import com.mall.model.OrderMaster;
-import com.mall.model.query.OrderMasterQuery;
+import com.mall.entity.OrderMaster;
+import com.mall.query.OrderMasterQuery;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;

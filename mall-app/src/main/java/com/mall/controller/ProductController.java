@@ -1,12 +1,12 @@
 package com.mall.controller;
 
 import com.mall.annotation.NoAuthorization;
-import com.mall.model.Product;
-import com.mall.model.dto.ProductDTO;
-import com.mall.model.query.ProductQuery;
-import com.mall.model.status.ProductStatusUpdater;
+import com.mall.entity.Product;
+import com.mall.model.ProductDTO;
+import com.mall.query.ProductQuery;
 import com.mall.service.CategoryService;
 import com.mall.service.ProductService;
+import com.mall.status.ProductStatusUpdater;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,9 @@
-package com.mall.model.query.dto;
+package com.mall.entity;
 
-import com.mall.model.AbstractQuery;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mall.annotation.Column;
+import com.mall.annotation.PK;
+import com.mall.annotation.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,16 +26,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class CategoryQueryDTO extends AbstractQuery {
+@Table(value = "tb_category")
+public class Category implements Serializable {
 
     /**
      * 类别编号
      */
+    @PK
     private Long id;
     /**
      * 类别名称
      */
     private String name;
+    /**
+     * 商品图片
+     */
+    private String img;
+    /**
+     * 显示优化级
+     */
+    private Long priority;
     /**
      * 父类别编号
      */
@@ -39,22 +53,16 @@ public class CategoryQueryDTO extends AbstractQuery {
     /**
      * 状态：1上架，2下架
      */
-    private Integer status = 1;
+    private Integer status;
     /**
      * 更新人
      */
+    @Column("update_by")
     private String updateBy;
-    /**
-     * 更新时间
-     */
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column("update_time")
     private LocalDateTime updateTime;
-    /**
-     * 检索的深度
-     */
-    private Integer deep = Integer.MAX_VALUE;
-    /**
-     * 判断是否需要返回树形结构的数据
-     */
-    private Integer isTree = 1;
+
 }
 
