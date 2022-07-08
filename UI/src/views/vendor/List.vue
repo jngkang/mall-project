@@ -150,7 +150,6 @@ const tableDataInit = () => {
             pageNum: currentPage.value,
         })
         .then((res: any) => {
-            console.log(res);
             total.value = res.total
             tableData.value = res.items
             tableData.value.forEach(res => {

@@ -75,7 +75,7 @@ onBeforeMount(() => {
             opends.value.push(res.path)
         }
     })
-    console.log(opends.value);
+    // console.log(opends.value);
 })
 
 
