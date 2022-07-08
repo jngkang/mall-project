@@ -53,12 +53,10 @@ import {ElMessage} from "element-plus/es";
 import appStore from "@/store/appStore";
 import {storeToRefs} from "pinia";
 
-let {menuCollapse} = storeToRefs(appStore());
-
 const route = useRoute();
 const router = useRouter();
 
-let {user} = storeToRefs(appStore());
+let {user, menuCollapse} = storeToRefs(appStore());
 
 const nickname = ref('游客')
 const isCollapse = ref(false)

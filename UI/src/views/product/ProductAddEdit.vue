@@ -49,10 +49,11 @@
                         <div class="h510" style="margin: 0 30px;">
                             <el-upload
                                     class="avatar-uploader"
-                                    ref="uploadRef"
-                                    :auto-upload="false"
                                     :show-file-list="false"
-                                    :on-change="onchange"
+                                    action="/api/upload"
+                                    :headers="headers"
+                                    :before-upload="beforeUpload"
+                                    :on-success="uploadSuccess"
                             >
                                 <img v-if="form.img" :src="form.img" class="avatar"/>
                                 <el-icon v-else class="avatar-uploader-icon">
@@ -82,11 +83,14 @@
 
 <script lang="ts" setup>
 import MyEditor from '@/components/MyEditor.vue'
-import {onMounted, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import http from "../../http";
 import {ElMessage} from "element-plus/es";
 import {useRoute, useRouter} from "vue-router";
+import appStore from "@/store/appStore";
+import {storeToRefs} from "pinia";
 
+let {token} = storeToRefs(appStore());
 const route = useRoute();
 const router = useRouter();
 
@@ -96,7 +100,7 @@ const tabIndex = ref("0");
 // 获取子组件富文本编辑器中的数据
 const editor = ref();
 
-const form = ref({
+const form = reactive({
     id: '',
     name: '',
     categoryId: '0',
@@ -113,12 +117,25 @@ const categoryData = ref([
 
 onMounted(() => {
     initCategory()
-    form.value.id = <string>route.query.id;
-    if (form.value.id != null || form.value.id != undefined) {
+    form.id = <string>route.query.id;
+    if (form.id != null || form.id != undefined) {
         queryInfoById()
     }
-
 })
+
+const headers = ref()
+
+const beforeUpload = () => {
+    headers.value = {
+        'Authorization': token.value,
+    }
+}
+
+const uploadSuccess = (res) => {
+    console.log(res.data);
+    form.img = res.data
+    ElMessage.success("上传成功")
+}
 
 const initCategory = () => {
     http
@@ -134,16 +151,16 @@ const initCategory = () => {
 const queryInfoById = () => {
     http
         .post("/api/product/page", {
-            id: form.value.id,
+            id: form.id,
         })
         .then((res: any) => {
-            form.value.id = res[0].id
-            form.value.name = res[0].name
-            form.value.categoryId = '' + res[0].categoryId
-            form.value.price = res[0].price
-            form.value.seq = res[0].seq
-            form.value.brief = res[0].brief
-            form.value.img = res[0].img
+            form.id = res[0].id
+            form.name = res[0].name
+            form.categoryId = '' + res[0].categoryId
+            form.price = res[0].price
+            form.seq = res[0].seq
+            form.brief = res[0].brief
+            form.img = res[0].img
 
             console.log(editor.value.valueHtml);
             editor.value.valueHtml = res[0].brief
@@ -177,23 +194,23 @@ const onchange = (file: any, fileList: any) => {
     var reader = new FileReader();
     reader.readAsDataURL(file.raw);
     reader.onload = () => {
-        form.value.img = reader.result;
-        form.value.imgName = file.raw.name;
+        form.img = reader.result;
+        form.imgName = file.raw.name;
     };
 };
 
 const submit = () => {
-    form.value.brief = editor.value.valueHtml
-    if (form.value.id == null) {
+    form.brief = editor.value.valueHtml
+    if (form.id == null) {
         http
             .post("/api/product/add", {
-                name: form.value.name,
-                categoryId: form.value.categoryId,
-                price: form.value.price,
-                seq: form.value.seq,
-                brief: form.value.brief,
-                img: form.value.img,
-                imgName: form.value.imgName,
+                name: form.name,
+                categoryId: form.categoryId,
+                price: form.price,
+                seq: form.seq,
+                brief: form.brief,
+                img: form.img,
+                imgName: form.imgName,
             })
             .then((res: any) => {
                 if (res == 'ok') {
@@ -209,14 +226,14 @@ const submit = () => {
     } else {
         http
             .post("/api/product/update", {
-                id: form.value.id,
-                name: form.value.name,
-                categoryId: form.value.categoryId,
-                price: form.value.price,
-                seq: form.value.seq,
-                brief: form.value.brief,
-                img: form.value.img,
-                imgName: form.value.imgName,
+                id: form.id,
+                name: form.name,
+                categoryId: form.categoryId,
+                price: form.price,
+                seq: form.seq,
+                brief: form.brief,
+                img: form.img,
+                imgName: form.imgName,
             })
             .then((res: any) => {
                 if (res == 'ok') {

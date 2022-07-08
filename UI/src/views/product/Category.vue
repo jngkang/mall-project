@@ -77,10 +77,11 @@
                         <el-form-item label="图片">
                             <el-upload
                                     class="avatar-uploader"
-                                    ref="uploadRef"
-                                    :auto-upload="false"
                                     :show-file-list="false"
-                                    :on-change="onchange"
+                                    action="/api/upload"
+                                    :headers="headers"
+                                    :before-upload="beforeUpload"
+                                    :on-success="uploadSuccess"
                             >
                                 <img v-if="form.img" :src="form.img" class="avatar"/>
                                 <el-icon v-else class="avatar-uploader-icon">
@@ -128,10 +129,11 @@
                         <el-form-item label="图片">
                             <el-upload
                                     class="avatar-uploader"
-                                    ref="uploadRef"
-                                    :auto-upload="false"
                                     :show-file-list="false"
-                                    :on-change="onchange"
+                                    action="/api/upload"
+                                    :headers="headers"
+                                    :before-upload="beforeUpload"
+                                    :on-success="uploadSuccess"
                             >
                                 <img v-if="form.img" :src="form.img" class="avatar"/>
                                 <el-icon v-else class="avatar-uploader-icon">
@@ -167,13 +169,15 @@
 import {ref, reactive, onMounted} from "vue";
 import {ElMessageBox} from 'element-plus'
 import http from "../../http";
-import type {UploadInstance} from "element-plus";
 import {useRoute, useRouter} from "vue-router";
 import {ElMessage} from "element-plus/es";
 import dayjs from 'dayjs'
 import {Delete, Edit, QuestionFilled} from '@element-plus/icons-vue'
+import appStore from "@/store/appStore";
+import {storeToRefs} from "pinia";
 
-const uploadRef = ref<UploadInstance>();
+let {token} = storeToRefs(appStore());
+
 const route = useRoute();
 const router = useRouter();
 
@@ -202,6 +206,19 @@ const dateFormatter = (row: any) => {
 
 const addDrawer = ref(false)
 const editDrawer = ref(false)
+
+const headers = ref()
+
+const beforeUpload = () => {
+    headers.value = {
+        'Authorization': token.value,
+    }
+}
+
+const uploadSuccess = (res) => {
+    form.img = res.data
+    ElMessage.success("上传成功")
+}
 
 onMounted(() => {
     init()
@@ -349,11 +366,13 @@ const reset = () => {
 </script>
 
 <style scoped>
+
     .avatar-uploader .avatar {
         width: 80px;
         height: 80px;
         display: block;
     }
+
 </style>
 
 <style>

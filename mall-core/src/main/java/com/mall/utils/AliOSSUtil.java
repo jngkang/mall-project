@@ -44,11 +44,6 @@ public class AliOSSUtil {
         // 获取文件名称
         String fileName = multipartFile.getOriginalFilename();
 
-        // 避免文件覆盖
-        int i = fileName.lastIndexOf(".");
-        String suffix = fileName.substring(i);
-        fileName = fileName.substring(0, i) + "_" + System.currentTimeMillis() + suffix;
-
         return upload(inputStream, fileName);
     }
 
@@ -248,7 +243,9 @@ public class AliOSSUtil {
         // 关闭ossClient
         ossClient.shutdown();
         // 把上传到oss的路径返回
-        return url.toString();
+        String res = url.toString();
+        // 将url后多余的参数过滤掉
+        return res.substring(0, res.indexOf(suffix) + suffix.length());
     }
 
     private static String getContentType(String FileNameExtension) {

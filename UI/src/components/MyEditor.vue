@@ -44,7 +44,7 @@ const editorConfig = {
 
 editorConfig.MENU_CONF['uploadImage'] = {
     // 上传图片的配置
-    server: '/api/upload',
+    server: '/api/wangEditor/upload',
     // 单个文件的最大体积限制，默认为 2M
     maxFileSize: 10 * 1024 * 1024,
     // 最多可上传几个文件，默认为 100
@@ -55,7 +55,7 @@ editorConfig.MENU_CONF['uploadImage'] = {
 
     // 单个文件上传成功之后
     onSuccess(res) {
-        console.log(res)
+        // console.log(res)
         ElMessage.success('上传成功')
     },
 
