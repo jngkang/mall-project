@@ -37,9 +37,9 @@ import {ref, reactive, onMounted} from "vue";
 import http from "@/http/index";
 import {ElMessage} from "element-plus";
 import type {FormInstance, FormRules} from "element-plus";
-import {storeToRefs} from "pinia";
 import jwtDecode from "jwt-decode";
 import {useRoute, useRouter} from "vue-router";
+import {storeToRefs} from "pinia";
 import appStore from "@/store/appStore";
 import {Md5} from 'ts-md5';
 
@@ -47,7 +47,6 @@ const route = useRoute();
 const router = useRouter();
 
 let {user, token} = storeToRefs(appStore());
-
 
 const loginFormRef = ref<FormInstance>();
 const form = reactive({

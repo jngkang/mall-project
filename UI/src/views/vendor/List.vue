@@ -58,19 +58,6 @@
     </div>
 
     <div>
-        <el-drawer v-model="InfoDrawer"
-                   direction="ltr"
-                   size="50%"
-        >
-            <template #default>
-                <div>
-                    <span v-html="info"></span>
-                </div>
-            </template>
-        </el-drawer>
-    </div>
-
-    <div>
         <add-view ref="addViewRef"></add-view>
         <edit-view ref="editViewRef"></edit-view>
     </div>
@@ -94,8 +81,8 @@ const router = useRouter();
 
 const tableData = ref([])
 
-const addViewRef = ref(false)
-const editViewRef = ref(false)
+const addViewRef = ref()
+const editViewRef = ref()
 const info = ref('')
 
 // 总数据量

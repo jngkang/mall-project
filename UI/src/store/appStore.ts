@@ -11,6 +11,7 @@ const appStore = defineStore({
             },
             token: "",
             menuCollapse: false,
+            products: [],
         }
     },
     getters: {},

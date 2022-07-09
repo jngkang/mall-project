@@ -87,7 +87,7 @@ class Http {
                     ElMessage.error("请求失败:" + error.message);
                     setTimeout(() => {
                         localStorage.removeItem('com.mall')
-                        window.location.href = '/login'
+                        window.location.href = '/#/login'
                     }, 1000);
                 }
                 return Promise.reject(error);

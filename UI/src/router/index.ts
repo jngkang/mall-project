@@ -114,7 +114,7 @@ const routes = [
         component: () => import("@/views/vendor/Index.vue"),
         meta: {
             title: "供应商管理",
-            icon: "Menu",
+            icon: "Van",
             show: true,
             isFrame: true,
         },
@@ -125,7 +125,31 @@ const routes = [
                 component: () => import("@/views/vendor/List.vue"),
                 meta: {
                     title: "供应商管理",
-                    icon: "Menu",
+                    icon: "Van",
+                    show: true,
+                    isFrame: true,
+                },
+            },
+        ]
+    },
+    {
+        path: '/bill',
+        name: 'bill',
+        component: () => import("@/views/bill/Index.vue"),
+        meta: {
+            title: "出入库单据管理",
+            icon: "Document",
+            show: true,
+            isFrame: true,
+        },
+        children: [
+            {
+                path: '/bill/list',
+                name: 'bill/list',
+                component: () => import("@/views/bill/List.vue"),
+                meta: {
+                    title: "入库单管理",
+                    icon: "Document",
                     show: true,
                     isFrame: true,
                 },
