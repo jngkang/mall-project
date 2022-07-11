@@ -1,7 +1,7 @@
 package com.mall.service.impl;
 
 import com.mall.entity.OrderMaster;
-import com.mall.mapper.OrderMasterMapper;
+import com.mall.dao.OrderMasterDao;
 import com.mall.query.OrderMasterQuery;
 import com.mall.service.OrderMasterService;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,11 @@ import java.util.List;
 public class OrderMasterServiceImpl implements OrderMasterService {
 
     @Resource
-    private OrderMasterMapper orderMasterMapper;
+    private OrderMasterDao orderMasterDao;
 
     @Override
     public List<OrderMaster> getPage(OrderMasterQuery orderMasterQuery) {
-        return orderMasterMapper.select(orderMasterQuery);
+        return orderMasterDao.select(orderMasterQuery);
     }
 
 }

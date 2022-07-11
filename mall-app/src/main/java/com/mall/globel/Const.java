@@ -18,4 +18,6 @@ public interface Const {
      */
     String IMG_SERVICE_PATH = "D:/CodePath/Nginx/nginx-1.22.0/html/images/";
 
+    String PRODUCT_PROXY = "product#";
+
 }

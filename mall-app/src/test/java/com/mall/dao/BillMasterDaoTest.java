@@ -1,4 +1,4 @@
-package com.mall.mapper;
+package com.mall.dao;
 
 import com.mall.entity.BillMaster;
 import org.junit.jupiter.api.Test;
@@ -8,13 +8,11 @@ import javax.annotation.Resource;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class BillMasterMapperTest {
+class BillMasterDaoTest {
 
     @Resource
-    private BillMasterMapper billMasterMapper;
+    private BillMasterDao billMasterDao;
 
     @Test
     void insert() {
@@ -25,6 +23,6 @@ class BillMasterMapperTest {
                 .lastUpdateBy("1")
                 .lastUpdateTime(LocalDateTime.now())
                 .build();
-        System.out.println(billMasterMapper.insert(billMaster));
+        System.out.println(billMasterDao.insert(billMaster));
     }
 }

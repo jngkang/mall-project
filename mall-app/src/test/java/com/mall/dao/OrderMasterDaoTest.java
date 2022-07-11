@@ -1,4 +1,4 @@
-package com.mall.mapper;
+package com.mall.dao;
 
 import com.mall.query.OrderMasterQuery;
 import org.junit.jupiter.api.Test;
@@ -7,13 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 
 @SpringBootTest
-class OrderMasterMapperTest {
+class OrderMasterDaoTest {
 
     @Resource
-    private OrderMasterMapper orderMasterMapper;
+    private OrderMasterDao orderMasterDao;
 
     @Test
     void select() {
-        System.out.println(orderMasterMapper.select(new OrderMasterQuery()));
+        System.out.println(orderMasterDao.select(new OrderMasterQuery()));
     }
 }

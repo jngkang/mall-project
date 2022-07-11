@@ -1,4 +1,4 @@
-package com.mall.mapper;
+package com.mall.dao;
 
 import com.mall.annotation.PageX;
 import com.mall.entity.Vendor;
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import java.util.List;
 
 @Mapper
-public interface VendorMapper {
+public interface VendorDao {
 
     @PageX
     @SelectProvider(type = SqlGen.class, method = SqlGen.SELECT)

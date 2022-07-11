@@ -3,7 +3,7 @@ package com.mall.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.mall.entity.Product;
 import com.mall.enums.ProductStatus;
-import com.mall.mapper.ProductMapper;
+import com.mall.dao.ProductDao;
 import com.mall.model.ProductDTO;
 import com.mall.query.ProductQuery;
 import com.mall.service.ProductService;
@@ -25,12 +25,12 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Resource
-    private ProductMapper productMapper;
+    private ProductDao productDao;
 
     @Override
     public List<ProductDTO> select(ProductQuery productQuery) {
         List<ProductDTO> res = new ArrayList<>();
-        List<Product> products = productMapper.select(productQuery);
+        List<Product> products = productDao.select(productQuery);
         for (Product product : products) {
             ProductDTO temp = new ProductDTO();
             temp.setId(product.getId());
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
                 .lastUpdateBy(CurrentThreadLocal.get().getUsername())
                 .lastUpdateTime(LocalDateTime.now())
                 .build();
-        Integer res = productMapper.insert(product);
+        Integer res = productDao.insert(product);
         return res > 0 ? "ok" : "err";
     }
 
@@ -76,11 +76,11 @@ public class ProductServiceImpl implements ProductService {
         }
         product.setLastUpdateBy(CurrentThreadLocal.get().getUsername());
         product.setLastUpdateTime(LocalDateTime.now());
-        return productMapper.update(product) > 0 ? "ok" : "err";
+        return productDao.update(product) > 0 ? "ok" : "err";
     }
 
     @Override
     public String updateStatus(ProductStatusUpdater productStatusUpdater) {
-        return productMapper.updateStatus(productStatusUpdater) > 0 ? "ok" : "err";
+        return productDao.updateStatus(productStatusUpdater) > 0 ? "ok" : "err";
     }
 }

@@ -1,4 +1,4 @@
-package com.mall.mapper;
+package com.mall.dao;
 
 import com.mall.annotation.PageX;
 import com.mall.entity.OrderMaster;
@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2022-06-10 14:46
  */
 @Mapper
-public interface OrderMasterMapper {
+public interface OrderMasterDao {
 
     @PageX
     @SelectProvider(type = SqlGen.class, method = SqlGen.SELECT)

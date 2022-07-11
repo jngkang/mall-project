@@ -1,9 +1,9 @@
-package com.mall.mapper;
+package com.mall.dao;
 
 import com.mall.annotation.PageX;
-import com.mall.entity.Product;
-import com.mall.query.ProductQuery;
-import com.mall.status.ProductStatusUpdater;
+import com.mall.entity.Category;
+import com.mall.query.CategoryQuery;
+import com.mall.status.CategoryStatusUpdater;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,19 +17,18 @@ import java.util.List;
  * @date 2022-06-10 14:46
  */
 @Mapper
-public interface ProductMapper {
+public interface CategoryDao {
 
     @PageX
     @SelectProvider(type = SqlGen.class, method = SqlGen.SELECT)
-    public List<Product> select(ProductQuery productQuery);
+    public List<Category> select(CategoryQuery categoryQuery);
 
     @InsertProvider(type = SqlGen.class, method = SqlGen.INSERT)
-    public Integer insert(Product product);
+    public Integer insert(Category category);
 
     @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
-    public Integer update(Product product);
+    public Integer update(Category category);
 
     @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
-    public Integer updateStatus(ProductStatusUpdater productStatusUpdater);
-
+    public Integer updateStatus(CategoryStatusUpdater categoryStatusUpdater);
 }

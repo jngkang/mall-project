@@ -24,7 +24,7 @@ public class BillMasterController {
     }
 
     @PostMapping("/insert")
-    public Integer insert(@RequestBody BillMasterDTO billMasterDTO) {
+    public Integer insert(@RequestBody BillMasterDTO billMasterDTO) throws Exception {
         return billMasterService.insert(billMasterDTO);
     }
 

@@ -1,6 +1,6 @@
 package com.mall.service;
 
-import com.mall.mapper.ProductMapper;
+import com.mall.dao.ProductDao;
 import com.mall.query.ProductQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,11 +11,11 @@ import javax.annotation.Resource;
 class ProductServiceTest {
 
     @Resource
-    private ProductMapper productMapper;
+    private ProductDao productDao;
 
     @Test
     void select() {
-        System.out.println(productMapper.select(new ProductQuery()));
+        System.out.println(productDao.select(new ProductQuery()));
     }
 
     @Test

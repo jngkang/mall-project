@@ -114,6 +114,7 @@ const vendorSelectDataInit = () => {
 
 const openProductList = () => {
     productListDrawerRef.value.productListDrawer = true;
+    productListDrawerRef.value.vendorSelectData = tableData.value;
     productListDrawerRef.value.openInit();
 }
 
@@ -131,12 +132,19 @@ const confirmClick = () => {
         .then((res: any) => {
             if (res === 1) {
                 ElMessage.success("提交成功")
-                tableData.value = []
+                reset()
             }
         })
         .catch((err: any) => {
             ElMessage.error("提交失败" + err)
         });
+}
+
+const reset = () => {
+    tableData.value = []
+    products.value = []
+    vendorId.value = null
+    billDate.value = new Date()
 }
 
 defineExpose({tableData});

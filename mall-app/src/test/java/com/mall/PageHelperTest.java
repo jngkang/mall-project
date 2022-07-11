@@ -1,6 +1,6 @@
 package com.mall;
 
-import com.mall.mapper.UserMapper;
+import com.mall.dao.UserDao;
 import com.mall.query.UserQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,13 +15,13 @@ import javax.annotation.Resource;
 public class PageHelperTest {
 
     @Resource
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Test
     void fun() {
         UserQuery userQuery = UserQuery.builder().build();
         userQuery.setPageNum(1);
         userQuery.setPageSize(1);
-        System.out.println(userMapper.select(userQuery));
+        System.out.println(userDao.select(userQuery));
     }
 }

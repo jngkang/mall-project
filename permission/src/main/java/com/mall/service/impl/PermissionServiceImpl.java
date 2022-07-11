@@ -1,6 +1,6 @@
 package com.mall.service.impl;
 
-import com.mall.mapper.PermissionMapper;
+import com.mall.dao.PermissionMapper;
 import com.mall.model.PermissionDTO;
 import com.mall.model.PermissionQuery;
 import com.mall.model.PermissionStatus;

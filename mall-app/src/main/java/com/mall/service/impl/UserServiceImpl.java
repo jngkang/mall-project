@@ -4,7 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.jwt.JWTUtil;
 import com.mall.entity.User;
-import com.mall.mapper.UserMapper;
+import com.mall.dao.UserDao;
 import com.mall.model.UserLoginDTO;
 import com.mall.model.UserRegisterDTO;
 import com.mall.query.UserQuery;
@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Resource
     private EmailUtil emailUtil;
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(UserLoginDTO userLoginDTO) throws Exception {
         // 根据前端传回的数据中的id进行查询数据
-        List<UserLoginDTO> queryRes = userMapper.select(UserQuery.builder().username(userLoginDTO.getUsername()).password(userLoginDTO.getPassword()).build());
+        List<UserLoginDTO> queryRes = userDao.select(UserQuery.builder().username(userLoginDTO.getUsername()).password(userLoginDTO.getPassword()).build());
         UserLoginDTO res = queryRes.get(0);
         // TODO 此处从数据库中获取盐值，再使用MD5加密后再进行比较
         if (!(userLoginDTO.getUsername().equals(res.getUsername())
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
                 .password(userRegisterDTO.getPassword())
                 .build();
         // TODO 此处使用MD5进行加密，并保存盐值
-        Integer res = userMapper.insert(user);
+        Integer res = userDao.insert(user);
         return "ok";
     }
 
@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception("该邮箱不合法，请更换邮箱！");
         }
         // 检测邮箱是否已经被注册
-        List<UserLoginDTO> list = userMapper.select(UserQuery.builder().email(email).build());
+        List<UserLoginDTO> list = userDao.select(UserQuery.builder().email(email).build());
         if (list.size() > 0) {
             throw new Exception("该邮箱已经被绑定，请更换邮箱！");
         }

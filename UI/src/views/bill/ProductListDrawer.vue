@@ -89,16 +89,19 @@ const queryForm = reactive({
     categoryId: "",
 });
 
+const vendorSelectData = ref([])
+
 const instance = getCurrentInstance();
-const elTableRef = ref()
+const elTableRef = ref(null)
 
 onMounted(() => {
-    tableDataInit()
     initCategory()
 })
 
 const openInit = () => {
+    tableDataInit()
 }
+
 
 const handleSelectionChange = (val) => {
     tableSelectData.value = val
@@ -132,11 +135,28 @@ const tableDataInit = () => {
             categoryId: queryForm.categoryId,
         })
         .then((res: any) => {
-            let temp = ref([])
+            tableData.value = []
             res.forEach(r => {
-                temp.value.push({id: r.id, img: r.img, name: r.name, qty: 1})
+                tableData.value.push({id: r.id, img: r.img, name: r.name, qty: 1})
             })
-            tableData.value = temp.value
+
+            // TODO 失效原因：数据在内存中的地址不同导致的，需要用双层循环
+
+            if (vendorSelectData) {
+                vendorSelectData.value.forEach(res => {
+                    console.log(res);
+                    tableData.value.forEach(r => {
+                        if (res.id === r.id) {
+                            console.log(r);
+                            console.log(r.id);
+                            console.log(res.id);
+                            elTableRef.value!.toggleRowSelection(r)
+                        }
+                    })
+                })
+            } else {
+                elTableRef.value!.clearSelection()
+            }
         })
         .catch((err: any) => {
             ElMessage.error("数据初始化失败" + err)
@@ -153,5 +173,5 @@ const handleClose = () => {
     productListDrawer.value = false
 }
 
-defineExpose({productListDrawer, openInit});
+defineExpose({productListDrawer, openInit, vendorSelectData});
 </script>

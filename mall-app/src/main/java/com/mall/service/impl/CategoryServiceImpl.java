@@ -6,7 +6,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mall.entity.Category;
 import com.mall.globel.Const;
-import com.mall.mapper.CategoryMapper;
+import com.mall.dao.CategoryDao;
 import com.mall.model.CategoryDTO;
 import com.mall.query.CategoryQuery;
 import com.mall.service.CategoryService;
@@ -28,12 +28,12 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     @Resource
-    private CategoryMapper categoryMapper;
+    private CategoryDao categoryDao;
 
     @Override
     public List<CategoryDTO> select(CategoryQuery categoryQuery) {
         List<CategoryDTO> res = new ArrayList<>();
-        List<Category> lists = categoryMapper.select(categoryQuery);
+        List<Category> lists = categoryDao.select(categoryQuery);
         for (Category list : lists) {
             CategoryDTO temp = new CategoryDTO();
             temp.setId(list.getId());
@@ -63,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setImg(uploadImg(categoryDTO));
         category.setUpdateBy(CurrentThreadLocal.get().getUsername());
         category.setUpdateTime(LocalDateTime.now());
-        return categoryMapper.insert(category);
+        return categoryDao.insert(category);
     }
 
     @Override
@@ -81,12 +81,12 @@ public class CategoryServiceImpl implements CategoryService {
         category.setImg(uploadImg(categoryDTO));
         category.setUpdateBy(CurrentThreadLocal.get().getUsername());
         category.setUpdateTime(LocalDateTime.now());
-        return categoryMapper.update(category);
+        return categoryDao.update(category);
     }
 
     @Override
     public Integer updateStatus(CategoryStatusUpdater categoryStatusUpdater) {
-        return categoryMapper.updateStatus(categoryStatusUpdater);
+        return categoryDao.updateStatus(categoryStatusUpdater);
     }
 
     private String uploadImg(CategoryDTO categoryDTO) {

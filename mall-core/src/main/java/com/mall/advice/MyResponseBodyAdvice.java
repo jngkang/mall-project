@@ -8,6 +8,7 @@ import com.mall.model.PageXInfo;
 import com.mall.annotation.NoWapper;
 import com.mall.model.HttpResponse;
 import com.mall.threadlocal.PageXThreadLocal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author JngKang
  * @date 2022-06-09 16:17
  */
+@Slf4j
 @RestControllerAdvice(basePackages = {"com.mall.controller"}) // 绑定指定包下的所有类
 public class MyResponseBodyAdvice implements ResponseBodyAdvice {
 
@@ -47,6 +49,11 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice {
         HttpResponse<Object> httpResponse = new HttpResponse<>();
         httpResponse.setCode(1);
         httpResponse.setMessage(ex.getMessage());
+        if (ex.getMessage() == null) {
+            System.out.println(ex);
+        } else {
+            log.error(ex.getMessage());
+        }
         return httpResponse;
     }
 

@@ -1,9 +1,9 @@
 package com.mall.service;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.mall.dao.VendorDao;
 import com.mall.entity.Vendor;
 import com.mall.enums.VendorStatus;
-import com.mall.mapper.VendorMapper;
 import com.mall.model.VendorDTO;
 import com.mall.query.VendorQuery;
 import com.mall.query.VendorQueryDTO;
@@ -20,7 +20,7 @@ import java.util.List;
 public class VendorService {
 
     @Resource
-    private VendorMapper vendorMapper;
+    private VendorDao vendorDao;
 
     public List<VendorDTO> select(VendorQueryDTO vendorQueryDTO) {
         List<VendorDTO> res = new ArrayList<>();
@@ -33,7 +33,7 @@ public class VendorService {
         vendorQuery.setPageNum(vendorQueryDTO.getPageNum());
         vendorQuery.setPageSize(vendorQueryDTO.getPageSize());
 
-        List<Vendor> vendors = vendorMapper.select(vendorQuery);
+        List<Vendor> vendors = vendorDao.select(vendorQuery);
         for (Vendor vendor : vendors) {
             VendorDTO vendorDTO = new VendorDTO();
             vendorDTO.setStatus(vendor.getStatus());
@@ -67,7 +67,7 @@ public class VendorService {
         vendor.setDistrict(vendorDTO.getDistrict());
         vendor.setAddress(vendorDTO.getAddress());
         vendor.setSeq(vendorDTO.getSeq());
-        return vendorMapper.insert(vendor);
+        return vendorDao.insert(vendor);
     }
 
     public Integer update(VendorDTO vendorDTO) {
@@ -85,11 +85,11 @@ public class VendorService {
         vendor.setDistrict(vendorDTO.getDistrict());
         vendor.setAddress(vendorDTO.getAddress());
         vendor.setSeq(vendorDTO.getSeq());
-        return vendorMapper.update(vendor);
+        return vendorDao.update(vendor);
     }
 
     public Integer updateStatus(VendorStatusUpdater vendorStatusUpdater) {
-        return vendorMapper.updateStatus(vendorStatusUpdater);
+        return vendorDao.updateStatus(vendorStatusUpdater);
     }
 
 }

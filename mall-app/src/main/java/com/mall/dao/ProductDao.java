@@ -1,10 +1,9 @@
-package com.mall.mapper;
+package com.mall.dao;
 
 import com.mall.annotation.PageX;
-import com.mall.model.Permission;
-import com.mall.model.PermissionDTO;
-import com.mall.model.PermissionQuery;
-import com.mall.model.PermissionStatus;
+import com.mall.entity.Product;
+import com.mall.query.ProductQuery;
+import com.mall.status.ProductStatusUpdater;
 import com.mall.utils.SqlGen;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,24 +17,19 @@ import java.util.List;
  * @date 2022-06-10 14:46
  */
 @Mapper
-public interface PermissionMapper {
+public interface ProductDao {
 
-    /**
-     * 登录
-     *
-     * @param userQuery 根据用户id查询
-     * @return java.util.List<com.mall.model.VO.UserVO> 返回用户的信息
-     */
     @PageX
     @SelectProvider(type = SqlGen.class, method = SqlGen.SELECT)
-    public List<PermissionDTO> select(PermissionQuery permissionQuery);
+    public List<Product> select(ProductQuery productQuery);
 
     @InsertProvider(type = SqlGen.class, method = SqlGen.INSERT)
-    public Integer insert(Permission permission);
+    public Integer insert(Product product);
 
     @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
-    public Integer update(Permission permission);
+    public Integer update(Product product);
 
     @UpdateProvider(type = SqlGen.class, method = SqlGen.UPDATE)
-    public Integer updateStatus(PermissionStatus permissionStatus);
+    public Integer updateStatus(ProductStatusUpdater productStatusUpdater);
+
 }

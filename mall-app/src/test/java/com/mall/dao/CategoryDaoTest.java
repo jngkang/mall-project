@@ -1,4 +1,4 @@
-package com.mall.mapper;
+package com.mall.dao;
 
 import com.mall.status.CategoryStatusUpdater;
 import org.junit.jupiter.api.Test;
@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 
 @SpringBootTest
-class CategoryMapperTest {
+class CategoryDaoTest {
 
     @Resource
-    private CategoryMapper categoryMapper;
+    private CategoryDao categoryDao;
 
     @Test
     void update() {
@@ -18,6 +18,6 @@ class CategoryMapperTest {
                 .id(1L)
                 .status(3)
                 .build();
-        categoryMapper.updateStatus(category);
+        categoryDao.updateStatus(category);
     }
 }
