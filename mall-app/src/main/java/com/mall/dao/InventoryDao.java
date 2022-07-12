@@ -22,14 +22,14 @@ public interface InventoryDao {
     public Integer insert(Inventory inventory);
 
     @Update("update inventory " +
-            "set productId = ${productId}, " +
-            "accountQty = ${accountQty}, " +
-            "qty = ${qty}, " +
-            "soldQty = ${soldQty}, " +
-            "lastUpdateBy = '${lastUpdateBy}', " +
-            "lastUpdateTime = '${lastUpdateTime}', " +
-            "version = ${version} + 1 " +
-            "where id = ${id} and version = ${version}")
+            "set productId = #{productId}, " +
+            "accountQty = #{accountQty}, " +
+            "qty = #{qty}, " +
+            "soldQty = #{soldQty}, " +
+            "lastUpdateBy = #{lastUpdateBy}, " +
+            "lastUpdateTime = #{lastUpdateTime}, " +
+            "version = #{version} + 1 " +
+            "where id = #{id} and version = #{version}")
     public Integer update(Inventory inventory);
 
 }
