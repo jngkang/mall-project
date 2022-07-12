@@ -144,11 +144,44 @@ const routes = [
         },
         children: [
             {
-                path: '/bill/list',
-                name: 'bill/list',
-                component: () => import("@/views/bill/List.vue"),
+                path: '/bill/in/list',
+                name: 'billinlist',
+                component: () => import("@/views/bill/BillInList.vue"),
                 meta: {
-                    title: "入库单管理",
+                    title: "入库单据",
+                    icon: "Document",
+                    show: true,
+                    isFrame: true,
+                },
+            },
+            {
+                path: '/bill/in',
+                name: 'billin',
+                component: () => import("@/views/bill/BillIn.vue"),
+                meta: {
+                    title: "新增入库单据",
+                    icon: "Document",
+                    show: true,
+                    isFrame: true,
+                },
+            },
+            {
+                path: '/bill/out/list',
+                name: 'billoutlist',
+                component: () => import("@/views/bill/BillOutList.vue"),
+                meta: {
+                    title: "出库单据",
+                    icon: "Document",
+                    show: true,
+                    isFrame: true,
+                },
+            },
+            {
+                path: '/bill/out',
+                name: 'billout',
+                component: () => import("@/views/bill/BillOut.vue"),
+                meta: {
+                    title: "新增出库单据",
                     icon: "Document",
                     show: true,
                     isFrame: true,

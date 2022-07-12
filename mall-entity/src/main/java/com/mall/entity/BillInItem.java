@@ -26,8 +26,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_bill_item")
-public class BillItem implements Serializable {
+@Table(value = "bill_in_item")
+public class BillInItem implements Serializable {
 
     /**
      * ID
@@ -46,8 +46,8 @@ public class BillItem implements Serializable {
     /**
      * 入库单据ID
      */
-    @Column(value = "bill_master_id")
-    private Integer billMasterId;
+    @Column(value = "bill_id")
+    private Integer billId;
     /**
      * 最后更新着
      */

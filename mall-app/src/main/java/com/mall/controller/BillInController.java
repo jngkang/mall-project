@@ -1,8 +1,8 @@
 package com.mall.controller;
 
-import com.mall.model.BillMasterDTO;
-import com.mall.query.BillMasterQueryDTO;
-import com.mall.service.BillMasterService;
+import com.mall.model.BillInDTO;
+import com.mall.query.BillInQueryDTO;
+import com.mall.service.BillInService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,20 +12,20 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/billMaster")
-public class BillMasterController {
+@RequestMapping("/api/billIn")
+public class BillInController {
 
     @Resource
-    private BillMasterService billMasterService;
+    private BillInService billInService;
 
     @PostMapping("/select")
-    public List select(@RequestBody BillMasterQueryDTO billMasterQueryDTO) {
-        return billMasterService.select(billMasterQueryDTO);
+    public List select(@RequestBody BillInQueryDTO billInQueryDTO) {
+        return billInService.select(billInQueryDTO);
     }
 
     @PostMapping("/insert")
-    public Integer insert(@RequestBody BillMasterDTO billMasterDTO) throws Exception {
-        return billMasterService.insert(billMasterDTO);
+    public Integer insert(@RequestBody BillInDTO billInDTO) throws Exception {
+        return billInService.insert(billInDTO);
     }
 
     //@PostMapping("/update")

@@ -1,9 +1,8 @@
-package com.mall.entity;
+package com.mall.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mall.annotation.Column;
 import com.mall.annotation.PK;
-import com.mall.annotation.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,10 +14,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 入库单管理(TbBillMaster)实体类
+ * 入库商品表(TbBillItem)实体类
  *
  * @author makejava
- * @since 2022-07-09 08:26:31
+ * @since 2022-07-09 08:27:10
  */
 @Setter
 @Getter
@@ -26,8 +25,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_bill_master")
-public class BillMaster implements Serializable {
+public class BillInItemDTO implements Serializable {
 
     /**
      * ID
@@ -35,22 +33,23 @@ public class BillMaster implements Serializable {
     @PK
     private Integer id;
     /**
-     * 单据号
+     * 商品ID
      */
-    @Column(value = "bill_no")
-    private String billNo;
+    @Column(value = "product_id")
+    private Integer productId;
+    private String productName;
+    private String productImg;
     /**
-     * 供应商ID
+     * 商品数量
      */
-    @Column(value = "vendor_id")
-    private Integer vendorId;
+    private Integer qty;
     /**
-     * 单据日期
+     * 入库单据ID
      */
-    @Column(value = "bill_date")
-    private LocalDateTime billDate;
+    @Column(value = "bill_id")
+    private Integer billId;
     /**
-     * 最后更新者
+     * 最后更新着
      */
     @Column(value = "last_update_by")
     private String lastUpdateBy;

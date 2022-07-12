@@ -2,6 +2,7 @@ package com.mall.query;
 
 import com.mall.annotation.Column;
 import com.mall.annotation.EQ;
+import com.mall.annotation.Like;
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
 import com.mall.model.AbstractQuery;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 入库单管理(TbBillMaster)实体类
@@ -26,8 +27,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_bill_master")
-public class BillMasterQuery extends AbstractQuery {
+@Table(value = "bill_in")
+public class BillInQuery extends AbstractQuery {
 
     /**
      * ID
@@ -39,7 +40,7 @@ public class BillMasterQuery extends AbstractQuery {
      * 单据号
      */
     @Column(value = "bill_no")
-    @EQ
+    @Like
     private String billNo;
     /**
      * 供应商ID
@@ -52,7 +53,7 @@ public class BillMasterQuery extends AbstractQuery {
      */
     @Column(value = "bill_date")
     @EQ
-    private Date billDate;
+    private LocalDateTime billDate;
 
 }
 

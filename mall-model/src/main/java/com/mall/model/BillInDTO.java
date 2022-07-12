@@ -1,5 +1,6 @@
 package com.mall.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mall.annotation.Column;
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
@@ -26,8 +27,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_bill_master")
-public class BillMasterDTO implements Serializable {
+@Table(value = "bill_in")
+public class BillInDTO implements Serializable {
 
     /**
      * ID
@@ -44,13 +45,26 @@ public class BillMasterDTO implements Serializable {
      */
     @Column(value = "vendor_id")
     private Integer vendorId;
+    private String vendorName;
     /**
      * 单据日期
      */
     @Column(value = "bill_date")
     private LocalDateTime billDate;
 
-    private List<BillItemDTO> billItemList;
+    /**
+     * 最后更新者
+     */
+    @Column(value = "last_update_by")
+    private String lastUpdateBy;
+    /**
+     * 最后更新时间
+     */
+    @Column(value = "last_update_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime lastUpdateTime;
+
+    private List<BillInItemDTO> billItemList;
 
 }
 

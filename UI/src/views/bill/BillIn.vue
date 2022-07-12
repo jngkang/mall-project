@@ -124,7 +124,7 @@ const softDelete = (row) => {
 
 const confirmClick = () => {
     http
-        .post("/api/billMaster/insert", {
+        .post("/api/billIn/insert", {
             vendorId: vendorId.value,
             billDate: billDate.value,
             billItemList: tableData.value,

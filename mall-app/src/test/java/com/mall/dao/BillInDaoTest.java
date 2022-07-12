@@ -1,6 +1,6 @@
 package com.mall.dao;
 
-import com.mall.entity.BillMaster;
+import com.mall.entity.BillIn;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,20 +9,20 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
 @SpringBootTest
-class BillMasterDaoTest {
+class BillInDaoTest {
 
     @Resource
-    private BillMasterDao billMasterDao;
+    private BillInDao billInDao;
 
     @Test
     void insert() {
-        BillMaster billMaster = BillMaster.builder()
+        BillIn billIn = BillIn.builder()
                 .billNo("1")
                 .vendorId(1)
                 .billDate(LocalDateTime.now())
                 .lastUpdateBy("1")
                 .lastUpdateTime(LocalDateTime.now())
                 .build();
-        System.out.println(billMasterDao.insert(billMaster));
+        System.out.println(billInDao.insert(billIn));
     }
 }

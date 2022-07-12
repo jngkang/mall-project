@@ -24,8 +24,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_bill_item")
-public class BillItemQuery extends AbstractQuery {
+@Table(value = "bill_in_item")
+public class BillInItemQuery extends AbstractQuery {
 
     /**
      * ID
@@ -47,9 +47,9 @@ public class BillItemQuery extends AbstractQuery {
     /**
      * 入库单据ID
      */
-    @Column(value = "bill_master_id")
+    @Column(value = "bill_id")
     @EQ
-    private Integer billMasterId;
+    private Integer billId;
 
 }
 
