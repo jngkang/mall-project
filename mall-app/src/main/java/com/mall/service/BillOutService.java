@@ -141,7 +141,11 @@ public class BillOutService {
             inventoryHistory.setSoldQty1(inventory.getSoldQty());
             res = inventoryHistoryDao.insert(inventoryHistory);
 
-            valueOperations.decrement(Const.PRODUCT_PROXY + billOutItemDTO.getId(), billOutItemDTO.getQty());
+            if (qtyOld.equals(billOutItemDTO.getQty())) {
+                valueOperations.getAndDelete(Const.PRODUCT_PROXY + billOutItemDTO.getId());
+            } else {
+                valueOperations.decrement(Const.PRODUCT_PROXY + billOutItemDTO.getId(), billOutItemDTO.getQty());
+            }
         }
 
         return res;
