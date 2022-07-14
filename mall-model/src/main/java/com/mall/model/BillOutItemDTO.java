@@ -14,62 +14,43 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 商品表(Product)实体类
+ * 出库商品表(BillOutItem)实体类
  *
  * @author makejava
- * @since 2022-07-05 15:59:59
+ * @since 2022-07-13 19:37:17
  */
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_product")
-public class ProductDTO implements Serializable {
+@Table(value = "bill_out_item")
+public class BillOutItemDTO implements Serializable {
 
     /**
      * ID
      */
     @PK
-    private Long id;
+    private Integer id;
     /**
-     * 列别编号
+     * 商品ID
      */
-    @Column(value = "category_id")
-    private Long categoryId;
-    //private String categoryName;
+    @Column(value = "product_id")
+    private Integer productId;
+    private String productName;
+    private String productImg;
     /**
-     * 商品名称
+     * 商品数量
      */
-    private String name;
-    /**
-     * 商品图片
-     */
-    private String img;
-    private String imgName;
-    /**
-     * 商品价格
-     */
-    private Double price;
-    /**
-     * 商品内容
-     */
-    private String brief;
-    /**
-     * 排序
-     */
-    private Integer seq;
-    /**
-     * 商品状态
-     */
-    private Integer status;
-    private String statusX;
-
     private Integer qty;
-
     /**
-     * 最后更新者
+     * 入库单据ID
+     */
+    @Column(value = "bill_id")
+    private Integer billId;
+    /**
+     * 最后更新着
      */
     @Column(value = "last_update_by")
     private String lastUpdateBy;

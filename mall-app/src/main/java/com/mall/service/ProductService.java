@@ -16,6 +16,7 @@ import java.util.List;
 public interface ProductService {
 
     public List<ProductDTO> select(ProductQuery productQuery);
+    public List<ProductDTO> selectByRedis(ProductQuery productQuery);
 
     public String insert(ProductDTO productDTO);
 

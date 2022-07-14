@@ -132,7 +132,7 @@ const handleCurrentChange = () => {
 
 const tableDataInit = () => {
     http
-        .post("/api/billIn/select", {
+        .post("/api/billOut/select", {
             billNo: queryForm.query + "",
             pageSize: pageSize.value,
             pageNum: currentPage.value,
@@ -149,7 +149,7 @@ const tableDataInit = () => {
 const openInfo = (row) => {
     billItemData.value = []
     http
-        .post("/api/billInItem/select", {
+        .post("/api/billOutItem/select", {
             billId: row.id,
         })
         .then((res: any) => {

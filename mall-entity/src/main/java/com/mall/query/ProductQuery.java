@@ -2,6 +2,7 @@ package com.mall.query;
 
 import com.mall.annotation.Column;
 import com.mall.annotation.EQ;
+import com.mall.annotation.IN;
 import com.mall.annotation.Like;
 import com.mall.annotation.PK;
 import com.mall.annotation.Table;
@@ -34,6 +35,10 @@ public class ProductQuery extends AbstractQuery {
     @PK
     @EQ
     private Long id;
+
+    @Column(value = "id")
+    @IN
+    private Long[] ids;
     /**
      * 列别编号
      */

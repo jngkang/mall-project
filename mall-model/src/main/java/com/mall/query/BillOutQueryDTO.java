@@ -1,8 +1,11 @@
-package com.mall.model;
+package com.mall.query;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mall.annotation.Column;
+import com.mall.annotation.EQ;
+import com.mall.annotation.Like;
 import com.mall.annotation.PK;
+import com.mall.annotation.Table;
+import com.mall.model.AbstractQuery;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,14 +13,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 入库商品表(TbBillItem)实体类
+ * 出库单管理(BillOut)实体类
  *
  * @author makejava
- * @since 2022-07-09 08:27:10
+ * @since 2022-07-13 19:37:09
  */
 @Setter
 @Getter
@@ -25,33 +27,36 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class BillInItemDTO implements Serializable {
+@Table(value = "bill_out")
+public class BillOutQueryDTO extends AbstractQuery {
 
     /**
      * ID
      */
     @PK
+    @EQ
     private Integer id;
     /**
-     * 商品ID
+     * 单据号
      */
-    @Column(value = "product_id")
-    private Integer productId;
-    private String productName;
-    private String productImg;
+    @Column(value = "bill_no")
+    @Like
+    private String billNo;
     /**
-     * 商品数量
+     * 供应商ID
      */
-    private Integer qty;
+    @Column(value = "vendor_id")
+    @EQ
+    private Integer vendorId;
+    private Long categoryId;
     /**
-     * 入库单据ID
+     * 单据日期
      */
-    @Column(value = "bill_id")
-    private Integer billId;
-    @Column(value = "bill_id")
-    private Integer[] billIds;
+    @Column(value = "bill_date")
+    @EQ
+    private LocalDateTime billDate;
     /**
-     * 最后更新着
+     * 最后更新者
      */
     @Column(value = "last_update_by")
     private String lastUpdateBy;
@@ -59,7 +64,6 @@ public class BillInItemDTO implements Serializable {
      * 最后更新时间
      */
     @Column(value = "last_update_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastUpdateTime;
 
 }

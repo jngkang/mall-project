@@ -2,15 +2,7 @@
     <div>
         <div style="margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between;">
             <div style="display: flex; align-items: center;">
-                <span>供应商：</span>
-                <el-select v-model="vendorId" class="m-2" placeholder="请选择供应商..." style="margin-right: 10px;">
-                    <el-option
-                            v-for="item in vendorSelectData"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"></el-option>
-                </el-select>
-                <span>入库时间：</span>
+                <span>出库时间：</span>
                 <el-date-picker
                         v-model="billDate"
                         type="datetime"
@@ -19,7 +11,7 @@
                 ></el-date-picker>
                 <el-button type="primary" @click="openProductList">选择商品</el-button>
             </div>
-            <el-button type="success" style="align-self: flex-end;" @click="confirmClick">提交</el-button>
+            <el-button type="primary" style="align-self: flex-end;" @click="confirmClick">出库</el-button>
         </div>
         <el-table
                 :data="tableData"
@@ -43,7 +35,7 @@
             </el-table-column>
             <el-table-column prop="qty" label="入库数量" align="center" width="190">
                 <template #default="scope">
-                    <el-input-number v-model="scope.row.qty" :min="1" :max="999"></el-input-number>
+                    <el-input-number v-model="scope.row.qty" min="1" :max="scope.row.qtyt"></el-input-number>
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center" width="80">
@@ -66,12 +58,12 @@
     </div>
 
     <div>
-        <product-list-drawer ref="productListDrawerRef"></product-list-drawer>
+        <BillOutListDrawer ref="BillOutListDrawerRef"></BillOutListDrawer>
     </div>
 </template>
 
 <script lang="ts" setup>
-import ProductListDrawer from '@/views/bill/ProductListDrawer.vue'
+import BillOutListDrawer from './BillOutListDrawer.vue'
 import {defineExpose, onMounted, ref} from "vue";
 import {ElMessageBox} from 'element-plus'
 import http from "@/http/index";
@@ -89,10 +81,9 @@ const router = useRouter();
 const vendorSelectData = ref([])
 
 const tableData = ref([])
-const vendorId = ref()
 const billDate = ref(new Date())
 
-const productListDrawerRef = ref()
+const BillOutListDrawerRef = ref()
 
 onMounted(() => {
     vendorSelectDataInit()
@@ -113,9 +104,8 @@ const vendorSelectDataInit = () => {
 }
 
 const openProductList = () => {
-    productListDrawerRef.value.productListDrawer = true;
-    productListDrawerRef.value.vendorSelectData = tableData.value;
-    productListDrawerRef.value.openInit();
+    BillOutListDrawerRef.value.productListDrawer = true;
+    BillOutListDrawerRef.value.openInit();
 }
 
 const softDelete = (row) => {
@@ -124,8 +114,7 @@ const softDelete = (row) => {
 
 const confirmClick = () => {
     http
-        .post("/api/billIn/insert", {
-            vendorId: vendorId.value,
+        .post("/api/billOut/insert", {
             billDate: billDate.value,
             billItemList: tableData.value,
         })
@@ -143,7 +132,6 @@ const confirmClick = () => {
 const reset = () => {
     tableData.value = []
     products.value = []
-    vendorId.value = null
     billDate.value = new Date()
 }
 

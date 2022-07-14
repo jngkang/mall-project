@@ -4,7 +4,6 @@ import com.mall.annotation.NoAuthorization;
 import com.mall.entity.Product;
 import com.mall.model.ProductDTO;
 import com.mall.query.ProductQuery;
-import com.mall.service.CategoryService;
 import com.mall.service.ProductService;
 import com.mall.status.ProductStatusUpdater;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,13 +25,14 @@ public class ProductController {
     @Resource
     private ProductService productService;
 
-    @Resource
-    private CategoryService categoryService;
-
     @PostMapping("/page")
-    @NoAuthorization
     public List select(@RequestBody ProductQuery query) {
         return productService.select(query);
+    }
+
+    @PostMapping("/selectByRedis")
+    public List selectByRedis(@RequestBody ProductQuery productQuery) {
+        return productService.selectByRedis(productQuery);
     }
 
     @PostMapping("/add")

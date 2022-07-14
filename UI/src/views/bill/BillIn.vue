@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import ProductListDrawer from '@/views/bill/ProductListDrawer.vue'
+import ProductListDrawer from './BillInListDrawer.vue'
 import {defineExpose, onMounted, ref} from "vue";
 import {ElMessageBox} from 'element-plus'
 import http from "@/http/index";
@@ -113,6 +113,7 @@ const vendorSelectDataInit = () => {
 }
 
 const openProductList = () => {
+
     productListDrawerRef.value.productListDrawer = true;
     productListDrawerRef.value.vendorSelectData = tableData.value;
     productListDrawerRef.value.openInit();

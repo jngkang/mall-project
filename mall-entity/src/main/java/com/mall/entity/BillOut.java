@@ -1,4 +1,4 @@
-package com.mall.model;
+package com.mall.entity;
 
 import com.mall.annotation.Column;
 import com.mall.annotation.PK;
@@ -14,60 +14,40 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 商品表(Product)实体类
+ * 出库单管理(BillOut)实体类
  *
  * @author makejava
- * @since 2022-07-05 15:59:59
+ * @since 2022-07-13 19:37:09
  */
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString
-@Table(value = "tb_product")
-public class ProductDTO implements Serializable {
+@Table(value = "bill_out")
+public class BillOut implements Serializable {
 
     /**
      * ID
      */
     @PK
-    private Long id;
+    private Integer id;
     /**
-     * 列别编号
+     * 单据号
      */
-    @Column(value = "category_id")
-    private Long categoryId;
-    //private String categoryName;
+    @Column(value = "bill_no")
+    private String billNo;
     /**
-     * 商品名称
+     * 供应商ID
      */
-    private String name;
+    @Column(value = "vendor_id")
+    private Integer vendorId;
     /**
-     * 商品图片
+     * 单据日期
      */
-    private String img;
-    private String imgName;
-    /**
-     * 商品价格
-     */
-    private Double price;
-    /**
-     * 商品内容
-     */
-    private String brief;
-    /**
-     * 排序
-     */
-    private Integer seq;
-    /**
-     * 商品状态
-     */
-    private Integer status;
-    private String statusX;
-
-    private Integer qty;
-
+    @Column(value = "bill_date")
+    private LocalDateTime billDate;
     /**
      * 最后更新者
      */

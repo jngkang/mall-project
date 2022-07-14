@@ -1,21 +1,25 @@
 package com.mall.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.mall.converter.ProductMapper;
+import com.mall.dao.ProductDao;
 import com.mall.entity.Product;
 import com.mall.enums.ProductStatus;
-import com.mall.dao.ProductDao;
+import com.mall.globel.Const;
 import com.mall.model.ProductDTO;
 import com.mall.query.ProductQuery;
 import com.mall.service.ProductService;
 import com.mall.status.ProductStatusUpdater;
 import com.mall.threadlocal.CurrentThreadLocal;
 import com.mall.util.UploadUtil;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author JngKang
@@ -26,6 +30,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Resource
     private ProductDao productDao;
+
+    @Resource(name = "redisTemplate")
+    private RedisTemplate redisTemplate;
 
     @Override
     public List<ProductDTO> select(ProductQuery productQuery) {
@@ -47,6 +54,29 @@ public class ProductServiceImpl implements ProductService {
             res.add(temp);
         }
         return res;
+    }
+
+    @Override
+    public List<ProductDTO> selectByRedis(ProductQuery productQuery) {
+        List<ProductDTO> productDTOList = null;
+        Set<String> keys = redisTemplate.keys(Const.PRODUCT_PROXY + "*");
+        if (ObjectUtil.isNotEmpty(keys)) {
+            Long[] ids = new Long[keys.size()];
+            int i = 0;
+            for (String key : keys) {
+                Long id = Long.parseLong(key.substring(Const.PRODUCT_PROXY.length()));
+                ids[i++] = id;
+            }
+            productQuery.setIds(ids);
+
+            List<Product> productList = productDao.select(productQuery);
+            productDTOList = ProductMapper.MAPPER.beanList2DTOList(productList);
+            for (ProductDTO productDTO : productDTOList) {
+                Integer qty = (Integer) redisTemplate.boundValueOps(Const.PRODUCT_PROXY + productDTO.getId()).get();
+                productDTO.setQty(qty);
+            }
+        }
+        return productDTOList;
     }
 
     @Override
