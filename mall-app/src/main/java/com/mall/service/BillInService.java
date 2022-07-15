@@ -19,6 +19,7 @@ import com.mall.query.BillInQueryDTO;
 import com.mall.query.InventoryQuery;
 import com.mall.query.VendorQueryDTO;
 import com.mall.threadlocal.CurrentThreadLocal;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,8 +87,20 @@ public class BillInService {
         return res;
     }
 
-    @Transactional
     public Integer insert(BillInDTO billInDTO) throws Exception {
+        ////this1 BillService对象本身，没有被封装.
+        //BillInService this1 = this;
+        ////直接调用，事务不生效
+        //this1.insert2(billInDTO);
+        ////this2 封装后的代理对象.
+        //BillInService this2 =  (BillInService) AopContext.currentProxy();
+        ////调用，事务生效
+        //this2.insert2(billInDTO);
+        return ((BillInService) AopContext.currentProxy()).insert2(billInDTO);
+    }
+
+    @Transactional
+    public Integer insert2(BillInDTO billInDTO) throws Exception {
         int res = 0;
         if (billInDTO.getBillNo() == null) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -109,6 +122,8 @@ public class BillInService {
             billInItem.setLastUpdateBy(CurrentThreadLocal.get().getUsername());
             billInItem.setLastUpdateTime(LocalDateTime.now());
             res = billInItemDao.insert(billInItem);
+
+            //System.out.println(3 / 0);
 
             List<Inventory> inventories = inventoryDao.select(InventoryQuery.builder().productId(billInItemDTO.getId()).build());
             Inventory inventoryOld = null;
