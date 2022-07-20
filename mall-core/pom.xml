@@ -9,10 +9,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.core</groupId>
     <artifactId>mall-core</artifactId>
-    <name>project-core</name>
-    <description>project-core</description>
+    <name>mall-core</name>
+    <description>mall-core</description>
 
     <dependencies>
         <dependency>
@@ -79,20 +78,7 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
+
     </build>
 
 </project>

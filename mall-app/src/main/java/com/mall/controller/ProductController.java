@@ -1,6 +1,5 @@
 package com.mall.controller;
 
-import com.mall.annotation.NoAuthorization;
 import com.mall.entity.Product;
 import com.mall.model.ProductDTO;
 import com.mall.query.ProductQuery;
